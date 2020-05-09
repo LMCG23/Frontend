@@ -1,0 +1,269 @@
+<div class="body" style="margin-top: -3px; color: #b8b6b4;">
+    <h1 style="color: #b8b6b4;">Inicio de sesión </h1>
+    <div class="clear-loading spinner" style="margin-top: -1%; ">
+        <span></span>
+    </div>
+    <div class=" letras w3ls-login box box--big" style="margin-top: -2%;">
+        <!-- form starts here -->
+        <form ngNativeValidate #f="ngForm" (ngSubmit)="ingresar(f)" class="form-login">
+            <div class="agile-field-txt">
+                <label class="letras"><i class="fa fa-user" aria-hidden="true"></i> Nombre de usuario / Número de cédula
+                </label>
+                <input type="text" ngModel name="username" class="form-control"
+                    placeholder="Digite nombre de usuario o número de cédula " required />
+            </div>
+            <div class="agile-field-txt">
+                <label class="letras"><i class="fa fa-unlock-alt" aria-hidden="true"></i> contraseña </label>
+                <input id="pass" type="password" ngModel name="password" class="form-control"
+                    placeholder="Digite la contraseña" required="" id="myInput" />
+
+
+                <div class="agile-right ">
+                    <a class="letras" href="#">Olvidó la contraseña?</a>
+                </div>
+            </div>
+
+            <div class="agile-field-txt ">
+                <div class="agile-right" style="margin-top: -2%;">
+                    <a class="letras" style="cursor: pointer;" role="button" (click)="open(mymodal)" data-toggle="modal"
+                        data-target="#Register">Registrarse</a>
+                </div>
+            </div>
+
+
+
+            <input style="background: #5c7e10; color:#b8b6b4 ;" type="submit" value="INICIAR SESIÓN"
+                [disabled]="ingresando">
+        </form>
+    </div>
+    <!-- //form ends here -->
+</div>
+
+<!--REGISTER MODAL-->
+<div class="modal fade" id="Register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-lg modal-warning" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header text-center">
+                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Registrarse</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input [(ngModel)]="Persona.nombre" type="text" id="form3" class="form-control validate"
+                                    placeholder="Inserte su nombre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Apellido 1 </label>
+                                <input [(ngModel)]="Persona.apellido1" type="text" id="form3"
+                                    class="form-control validate" placeholder="Inserte su primer apellido">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Apellido 2</label>
+                                <input [(ngModel)]="Persona.apellido2" type="text" id="form3"
+                                    class="form-control validate" placeholder="Inserte su segundo apellido">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Número de Cédula</label>
+                                <input [(ngModel)]="Persona.strId" type="text" id="form3" class="form-control validate"
+                                    placeholder="Inserte su número de cédula">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Correo</label>
+                                <input [(ngModel)]="Persona.correo" type="email" id="form3"
+                                    class="form-control validate" placeholder="Inserte un correo electrónico">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Télefono</label>
+                                <input [(ngModel)]="Persona.telefono" type="number" id="form3"
+                                    class="form-control validate" placeholder="Inserte un número de télefono">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Nombre de usuario</label>
+                                <input [(ngModel)]="Usuario.nombre" type="text" id="form3" class="form-control validate"
+                                    placeholder="Inserte un nombre de usuario">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>contraseña</label>
+                                <input [(ngModel)]="passwordRegister" type="password" id="form3"
+                                    class="form-control validate" placeholder="Inserte una contraseña">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center modal-footer">
+                <a type="button" (click)="inicio()" class="btn  waves-effect"
+                    style="background: gray; color:whitesmoke ;">Cancelar<i class="fas fa-paper-plane-o ml-1"></i></a>
+                <a type="button" (click)="registrarse()" class="btn  waves-effect"
+                    style="background: #5c7e10; color:whitesmoke ;">Enviar<i class="fas fa-paper-plane-o ml-1"></i></a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+
+
+
+
+
+<ng-template #mymodal let-modal >
+    <!--Header-->
+    <div class="modal-header text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Registrarse</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+
+
+    <!--Body-->
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input [(ngModel)]="Persona.nombre" type="text" id="form3" class="form-control validate"
+                            placeholder="Inserte su nombre">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>Apellido 1 </label>
+                        <input [(ngModel)]="Persona.apellido1" type="text" id="form3" class="form-control validate"
+                            placeholder="Inserte su primer apellido">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>Apellido 2</label>
+                        <input [(ngModel)]="Persona.apellido2" type="text" id="form3" class="form-control validate"
+                            placeholder="Inserte su segundo apellido">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>Número de Cédula</label>
+                        <input [(ngModel)]="Persona.strId" type="text" id="form3" class="form-control validate"
+                            placeholder="Inserte su número de cédula">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>Correo</label>
+                        <input [(ngModel)]="Persona.correo" type="email" id="form3" class="form-control validate"
+                            placeholder="Inserte un correo electrónico">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>Télefono</label>
+                        <input [(ngModel)]="Persona.telefono" type="number" id="form3" class="form-control validate"
+                            placeholder="Inserte un número de télefono">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>Nombre de usuario</label>
+                        <input [(ngModel)]="Usuario.nombre" type="text" id="form3" class="form-control validate"
+                            placeholder="Inserte un nombre de usuario">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-14">
+                    <div class="form-group">
+                        <label>contraseña</label>
+                        <input [(ngModel)]="passwordRegister" type="password" id="form3" class="form-control validate"
+                            placeholder="Inserte una contraseña">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!--Footer-->
+    <div class="modal-footer justify-content-center modal-footer">
+        <a type="button" (click)="inicio()" class="btn  waves-effect"
+            style="background: gray; color:whitesmoke ;">Cancelar<i class="fas fa-paper-plane-o ml-1"></i></a>
+        <a type="button" (click)="registrarse()" class="btn  waves-effect"
+            style="background: #5c7e10; color:whitesmoke ;">Enviar<i class="fas fa-paper-plane-o ml-1"></i></a>
+    </div>
+</ng-template>

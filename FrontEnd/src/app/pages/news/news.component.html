@@ -1,0 +1,267 @@
+<div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
+                  <span class="h2 font-weight-bold mb-0">350,897</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                <span class="text-nowrap">Since last month</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
+                  <span class="h2 font-weight-bold mb-0">2,356</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                    <i class="fas fa-chart-pie"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                <span class="text-nowrap">Since last week</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
+                  <span class="h2 font-weight-bold mb-0">924</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                <span class="text-nowrap">Since yesterday</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
+                  <span class="h2 font-weight-bold mb-0">49,65%</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                    <i class="fas fa-percent"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                <span class="text-nowrap">Since last month</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                <th class="text-center">#</th>
+                <th class="text-center">Titúlo</th>
+                <th class="text-center w-150">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listNews">
+                <td style="text-align: center;">
+                  {{ item.new_id }}
+                </td>
+
+                <td class="text-center ">
+                  {{ item.titulo }}
+                </td>
+                <td class="text-center w-150">
+                  <button type="button" class="btn btn-cyan" (click)="Detail(item)">
+                    <i class="material-icons">info</i>
+                  </button>
+                  <button type="button" class="btn btn-cyan" (click)="EditNew(item)">
+                    <i class="material-icons">update</i>
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="deletenew(item)">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </td>
+
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <ngb-pagination class="d-flex justify-content-center" [(page)]="page"
+                    [collectionSize]="listNews.length" [boundaryLinks]="true" [rotate]="true" [ellipses]="false"
+                    [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" id="titulo">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form ngNativeValidate #f="ngForm" (ngSubmit)="ingresar(f)" class="form-login">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label>Título</label>
+              <input [(ngModel)]="Noticia.titulo" name="titulo" type="text" class="form-control validate"
+                placeholder="Título" required>
+
+            </div>
+            <div class="form-group col-md-6">
+              <label>Escoger foto</label><br>
+              <button (click)="open(mymodal)" type="button" class="btn btn-cyan" [disabled]="guardando">
+                <i class="material-icons">photo</i> Agregar
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label>Descripción</label>
+              <textarea [(ngModel)]="Noticia.descripcion" name="descripcion" class="form-control validate" required>
+
+                        </textarea>
+            </div>
+
+          </div>
+
+          <div class="float-right">
+
+            <button type="submit" class="btn btn-success" [disabled]="ingresando">
+              <i class="material-icons">save</i> Guardar
+
+            </button>
+
+
+            <button type="button" (click)="inicio()" class="btn btn-secondary" [disabled]="ingresando">Cancelar</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<!--agregar photo-->
+<ng-template #mymodal let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalScrollableTitle">Seleccione una foto</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+    </button>
+    </div>
+    <div class="modal-body">
+
+      <input type='file' (change)="readUrl($event)">
+      <img id='Img1' [src]="Noticia.fileToUpload">
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="GuardarFotos()">Aceptar</button>
+    </div>
+  </div>
+
+</ng-template>
+
+
+<!-- news details
+<ng-template #mymodal let-modal >
+  <div class="modal-dialog modal-dialog-scrollable " role="document">
+      <div class="modal-content">
+          <div class="modal-header text-center">
+              <h4 class="modal-title white-text w-100 font-weight-bold py-2">Detalle de la noticia</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" class="white-text">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+
+
+          
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label>Descripción</label>
+                      <textarea   [(ngModel)]="Noticia.descripcion"  class="form-control validate" required>
+  
+                  </textarea>
+                  </div>
+              </div>
+              
+              <div class="row">
+                  <div class="form-group col-md-12">
+                   
+                      <img id='Img1' [src]="Noticia.fileToUpload">
+                  </div>
+
+              </div>
+
+
+              
+          </div>
+          
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="GuardarFotos()">Aceptar</button>
+          </div>
+      </div>
+  </div>
+</ng-template> -->
