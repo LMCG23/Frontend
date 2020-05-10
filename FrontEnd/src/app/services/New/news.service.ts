@@ -39,6 +39,28 @@ postFile(Noticia:News) {
     );
 }
 
+ObtenerNoticiasFiltro(expired:string,filter:string) {
+  if(expired == ''){
+    expired = '_ALL_'
+  }
+  if(filter == ''){
+    filter = '_ALL_'
+  }
+
+
+  let url = `${URL_SERVICE}/News/getnewsfilter/${expired}/${filter}`;
+
+  console.log(url);
+  
+
+  return this.http.get( url)
+  .pipe(
+      map((resp: ApiResponse) => resp.result)
+    );
+}
+
+
+
 Delete(news_id:number){
 
   let url = `${URL_SERVICE}/news/delete/${news_id}`;

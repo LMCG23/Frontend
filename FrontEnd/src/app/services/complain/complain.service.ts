@@ -25,6 +25,32 @@ ListaDepartamentos() {
       );
   }
 
+  complaintsFilter(desde:string,hasta:string,state:string,department:string) {
+
+    if(desde == ''){
+      desde = '_ALL_'
+    }
+
+    if(hasta == ''){
+      hasta = '_ALL_'
+    }
+
+    if(state == '-1'){
+      state = '_ALL_'
+    }
+
+    if(department == '-1'){
+      department = '_ALL_'
+    }
+
+    let url = `${URL_SERVICE}/complaints/list/${desde}/${hasta}/${state}/${department}`;
+
+    return this.http.get( url)
+    .pipe(
+        map((resp: ApiResponse) => resp.result)
+      );
+  }
+
 
   ListaFuncionarios(depSeleccion:string) {
     let url = `${URL_SERVICE}/Funcionario/listaFuncionarios/${depSeleccion}`;

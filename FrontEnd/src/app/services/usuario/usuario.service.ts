@@ -189,6 +189,16 @@ export class UsuarioService {
 
   }
 
+  editprofile(user:Usuario){
+    let url = `${URL_SERVICE}/user/editprofile/`;
+
+    return this.http.post(url, user)
+      .pipe(
+        map((resp: ApiResponse) => Swal.fire( 'Editar perfil',  resp.message,  'success' ))
+      );
+
+
+  }
 
 
 

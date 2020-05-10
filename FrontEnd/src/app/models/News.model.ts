@@ -3,5 +3,6 @@ export class News {
         public titulo:string,
         public descripcion:string,
         public fileToUpload:string,
+        public expired:string
     ) { }
 }

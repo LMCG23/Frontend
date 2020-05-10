@@ -21,11 +21,15 @@ export class NewsComponent implements OnInit {
   listNews: News[] = [];
   ingresando: boolean = false;
   message: string;
-
-
+  hasta:string='';
+  filtro:string='';
   descripcion:string = '';
+  fileToUpload:string = ''
   titulo:string ='';
 
+  //pagination
+  page:number = 1;
+  pageSize:number = 10;
 
 
   constructor(
@@ -39,7 +43,7 @@ export class NewsComponent implements OnInit {
 
   inicio() {
     this.GetAllNews();
-    this.Noticia = new News( '', '', '');
+    this.Noticia = new News( '', '', '','');
     this.Noticia.fileToUpload = 'http://placehold.it/180';
   }
 
@@ -60,8 +64,10 @@ export class NewsComponent implements OnInit {
       .subscribe( result =>{
         this.url= 'http://placehold.it/180';
         this.ingresando = false;
+        
         this.GetAllNews();
         this.inicio();
+        this.modalService.dismissAll()
       } );
 
     
@@ -75,7 +81,7 @@ export class NewsComponent implements OnInit {
 
 
   GetAllNews(){
-    this._NewService.ObtenerNoticias()
+    this._NewService.ObtenerNoticiasFiltro(this.hasta,this.filtro)
     .subscribe(result => {
       this.listNews = result.Noticias;
       console.log(this.listNews);
@@ -92,8 +98,8 @@ export class NewsComponent implements OnInit {
   }
 
   Detail(item:any){
-    this.Noticia = Object.assign({},item)
-    $('#newsdatail').modal('show');
+    this.descripcion = item.descripcion
+    this.fileToUpload = item.fileToUpload
 
   }
 
@@ -184,6 +190,28 @@ validar() {
         return  `with: ${reason}`;
       }
     }
+
+
+    open2(content,item:any) {
+      this.Detail(item);
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"  }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
+
+    private getDismissReason2(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+      } else {
+        return  `with: ${reason}`;
+      }
+    }
+
+
 
 
 
