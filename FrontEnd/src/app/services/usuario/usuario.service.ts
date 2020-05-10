@@ -142,18 +142,27 @@ export class UsuarioService {
 
   }
 
-  changePassword(usuario: Usuario, password: string) {
+  changePassword(password: string,currentpassword:string) {
 
-    let url = `${URL_SERVICE}/usuario/change-password/${password}`;
+    let url = `${URL_SERVICE}/usuario/change-password/${password}/${currentpassword}`;
 
-    return this.http.post(url, usuario)
+    return this.http.post(url, password)
       .pipe(
         map((resp: ApiResponse) => Swal.fire( 'Cambio de contraseña',  resp.message,  'success' ))
       );
 
   }
 
+  savePhoto(user: Usuario) {
 
+    let url = `${URL_SERVICE}/user/savephoto/`;
+
+    return this.http.post(url, user)
+      .pipe(
+        map((resp: ApiResponse) => Swal.fire( 'Guardar foto',  resp.message,  'success' ))
+      );
+
+  }
 
   ListRole() {
 

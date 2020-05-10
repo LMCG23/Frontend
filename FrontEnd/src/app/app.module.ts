@@ -25,6 +25,7 @@ import { ServiceModule } from './services/service.module';
 
 // Services
 import { NewService,UsuarioService, HttphInterceptorService } from './services/service.index';
+import { EditprofileComponent } from './pages/editprofile/editprofile.component';
 
 
 
@@ -48,6 +49,7 @@ import { NewService,UsuarioService, HttphInterceptorService } from './services/s
     LoginComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+   
    
   
    

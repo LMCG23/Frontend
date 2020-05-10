@@ -28,6 +28,11 @@ export class UserProfileComponent implements OnInit {
     this.user = new Usuario(this.usuarioService.usuario.usuario_Id, this.usuarioService.usuario.nombre, this.usuarioService.usuario.rol, '', this.usuarioService.usuario.persona, this.usuarioService.usuario.departamento);
     this.editprofile = false;
 
+    this.user.photo = this.usuarioService.usuario.photo;
+
+    if(this.user.photo == ''){
+      this.user.photo = '/assets/img/theme/no_user_logo.png';
+    }
 
   }
 

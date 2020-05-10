@@ -54,9 +54,7 @@ export class NewsComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    // this.Noticia.descripcion = form.value.descripcion;
-    // this.Noticia.titulo = form.value.titulo;
-    // this.Noticia.fileToUpload = this.url;
+ 
     this.message = this.validar();
     if (this.message == '') {
     this.ingresando = true;
@@ -67,7 +65,7 @@ export class NewsComponent implements OnInit {
         
         this.GetAllNews();
         this.inicio();
-        this.modalService.dismissAll()
+      
       } );
 
     
@@ -138,18 +136,7 @@ readUrl(event:any) {
        
           this.Noticia.fileToUpload = event.target.result;
           
-        //   console.log("url normal=" +this.url);
-        //   var archivo=event.target.result;
-        //   console.log("archivo normal=" +archivo);
-
-        
-        // console.log("formato normal=" +fileName);
-        // archivo2= archivo.replace("data:" + fileName + ";base64,", "");
-        // console.log("archivo replace=" +archivo2);
-        
-// this.url=archivo2;
-          // https://stackoverflow.com/questions/51533584/converting-an-image-to-binary-in-javascript-using-base64
-      }
+           }
 
       reader.readAsDataURL(event.target.files[0]);
       

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/service.index';
+import { Usuario } from 'src/app/models/model.index';
 
 declare interface RouteInfo {
     path: string;
@@ -27,13 +29,26 @@ export class SidebarComponent implements OnInit {
 
   public menuItems: any[];
   public isCollapsed = true;
-
-  constructor(private router: Router) { }
+  user:Usuario
+  constructor(private router: Router,private usuarioService:UsuarioService ) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.user = new Usuario(this.usuarioService.usuario.usuario_Id,this.usuarioService.usuario.nombre,this.usuarioService.usuario.rol,'',this.usuarioService.usuario.persona,this.usuarioService.usuario.departamento);
+    this.user.photo = this.usuarioService.usuario.photo;
+    if(this.user.photo == ''){
+      this.user.photo = '/assets/img/theme/no_user_logo -2.png';
+    }
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
    });
   }
+
+
+  cerrarSesion() {
+    this.usuarioService.logout();
+  }
+
+
+
 }
