@@ -10,7 +10,7 @@ import {ComplainComponent} from '../../pages/complain/complain.component'
 import { DenounceComponent } from '../../pages/denounce/denounce.component';
 import { FuncionaryComponent } from '../../pages/funcionary/funcionary.component';
 import { DepartmentsComponent } from '../../pages/departments/departments.component';
-
+import { EditprofileComponent } from '../../pages/editprofile/editprofile.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -21,6 +21,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'Denounce',           component: DenounceComponent },
     { path: 'Funcionary',           component: FuncionaryComponent },
     { path: 'Departments',           component: DepartmentsComponent },
+    { path: 'EditProfile',           component: EditprofileComponent },
     { path: 'maps',           component: MapsComponent }
 
 ];
