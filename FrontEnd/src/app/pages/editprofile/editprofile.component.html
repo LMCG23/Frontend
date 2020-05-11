@@ -1,0 +1,154 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+    style="min-height: 600px;  background-size: cover; background-position: center top;"
+     >
+     <img [src]="user.photo" style=" display: inline-block;
+     overflow: hidden;
+     position: relative;
+     width: 100%;   pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1; " />
+    <!-- Mask -->
+    <span class="mask bg-gradient-default opacity-8"></span>
+    <!-- Header container -->
+    <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+            <div class="col-lg-10">
+                <h1 class="display-2 text-white">Hola {{user.persona.nombre }} {{user.persona.apellido1}} </h1>
+                <p class="text-white "> En esta pagina usted prodrá cambiar su contraseña y su foto de perfil </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col-xl-6 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Actualizar foto de perfil</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form ngNativeValidate #f="ngForm">
+
+
+
+                        <div class="row">
+                            <img (click)="open(mymodal)" height="300" width="300" style="cursor: pointer;"
+                                [src]="user.photo" alt="Imagen de perfil"
+                                class="card-transform rounded-circle img-fluid pointer mx-auto img-profile-lg">
+                        </div>
+
+
+
+                        <div class="float-right">
+                            <button type="button" class="btn btn-default" (click)="savephoto()" [disabled]="guardando">
+                                <i class="material-icons">save</i>
+                                Guardar
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-6 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Actualizar contraseña</h3>
+                        </div>
+                     
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label class="form-control-label">Contraseña Actual </label>
+                                <input type="password" [(ngModel)]="currentPassword" name="currentpassword"
+                                  class="form-control form-control-alternative" placeholder="Ingrese su contraseña actual"
+                                  >
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label class="form-control-label">Nueva contraseña </label>
+                                <input type="password" [(ngModel)]="newpassword" name="newpassword"
+                                  class="form-control form-control-alternative" placeholder="Ingrese la nueva contraseña"
+                                  >
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label class="form-control-label">Confirmación</label>
+                                <input type="password" [(ngModel)]="confirmation" name="confirmation"
+                                  class="form-control form-control-alternative" placeholder="Confirme su contraseña"
+                                  >
+                              </div>
+                            </div>
+                          </div>
+
+                        <div class="float-right">
+                            <button type="button" (click)="savePassword()" class="btn btn-default" [disabled]="guardando">
+                                <i class="material-icons">save</i> Guardar
+                            </button>
+
+                            <button (click)="cleanpassword()" type="button" class="btn btn-secondary" [disabled]="cancelando">
+                                <i class="material-icons">clear</i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+
+
+<ng-template #mymodal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">Seleccione una foto</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <img [src]="imagePathTemp" height="150" width="150" class="w-150 rounded-circle img-fluid">
+            </div>
+            <input #inputFile (change)="readUrl($event)" type="file" accept=".png, .jpg, .jpeg">
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="savePhoto() "
+                (click)="modal.dismiss('Cross click')">Aceptar</button>
+        </div>
+    </div>
+
+</ng-template>

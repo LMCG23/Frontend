@@ -25,12 +25,18 @@ export class ComplainComponent implements OnInit {
   fecha: Date;
   fechaString: string;
   Funcio: Funcionario;
-  Description:string;
+  Description: string;
+
+
+  desde: string = '';
+  hasta: string = '';
+  Complainstate: string = '-1';
+  departmentid_Filter: string = '-1';
 
 
   // Pagination
   page: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
 
   constructor(
     private _complainService: ComplainService,
@@ -49,17 +55,32 @@ export class ComplainComponent implements OnInit {
     this.Funcio = new Funcionario('', '', '', -1);
     this.fechaString = (this.fecha.getDate() + "/" + (this.fecha.getMonth() + 1) + "/" + this.fecha.getFullYear());
     this.queja = new Complain(-1, '', '', -1, -1, '', '', -1, '');
+    this.list();
+
     this._complainService.ListaDepartamentos()
       .subscribe(result => {
 
         var departmens = result.departamentos;
         this.departmens = departmens;
         console.log(this.departmens);
-        this.CargaXUsuario();
+
       })
 
 
   }
+
+
+
+  list() {
+
+    this._complainService.complaintsFilter(this.desde, this.hasta, this.Complainstate, this.departmentid_Filter)
+      .subscribe(result => {
+        this.complains = result.complaints;
+
+      });
+
+  }
+
 
   buscarEmployee() {
 
@@ -102,6 +123,21 @@ export class ComplainComponent implements OnInit {
   }
 
 
+  Validate(Complain: Complain) {
+    if (Complain.department_id == -1)
+      return 'Debe seleccionar el departamento';
+
+    if (Complain.employee_name == ' ')
+      return 'Debe seleccionar el funcionario';
+
+    if (Complain.Description == '')
+      return 'Debe ingresar una descripción';
+
+    return '';
+
+
+  }
+
 
   enviar() {
     if (this.queja.Complain_Id == -1) {
@@ -112,29 +148,51 @@ export class ComplainComponent implements OnInit {
       this.queja.person_Id = this.usuario.persona.persona_Id;
       this.queja.employee_name = this.Funcio.nombre + ' ' + this.Funcio.apellido1;
       this.queja.fecha = this.fechaString;
-      this._complainService.GuardarQueja(this.queja)
-        .subscribe(
-          result=>{
-            this.CargaXUsuario();
-      this.cleanComplain();
-          }
 
-        );
-   
+      console.log(this.queja );
+      let msj = this.Validate(this.queja);
+      
+      if (msj != '') {
+        Swal.fire('Error', msj, 'error');
+        return;
+      } else {
+        this._complainService.GuardarQueja(this.queja)
+          .subscribe(
+            result => {
+              this.list();
+              this.start();
+            }
+
+          );
+      }
+
+
+
     }
     else {
-    
+
       this.queja.department_id = parseInt(this.depSeleccion);
       this.queja.employee = this.Funcio.Person_Id.toString();
       this.queja.employee_name = this.Funcio.nombre + ' ' + this.Funcio.apellido1;
       this.queja.fecha = this.fechaString;
-      this._complainService.UpdateComplain(this.queja)
-        .subscribe(result => {
-          this.CargaXUsuario();
-          this.cleanComplain();
 
 
-        });
+      
+      let msj = this.Validate(this.queja);
+
+      if (msj != '') {
+        Swal.fire('Error', msj, 'error');
+        return;
+      } else {
+        this._complainService.UpdateComplain(this.queja)
+          .subscribe(result => {
+            this.list();
+            this.start();
+
+          });
+
+      }
+
 
 
 
@@ -148,7 +206,7 @@ export class ComplainComponent implements OnInit {
 
         var complains = result.complains;
         this.complains = complains;
-    
+
 
       })
 
@@ -157,26 +215,26 @@ export class ComplainComponent implements OnInit {
   cleanComplain() {
     this.queja = new Complain(-1, '', '', -1, -1, '', '', -1, '');
     this.queja.Description = '';
-    this.Funcio.nombre ='';
+    this.Funcio.nombre = '';
     this.department_Id = '-1';
 
   }
   deleteComplain(item: Complain) {
     if (item.state == 'Pendiente') {
       this._complainService.DeleteComplain(item.Complain_Id)
-      .subscribe(result => {
-        this.CargaXUsuario();
-      });
-    }else {
-      Swal.fire('Error de validación','La queja ya fue vista por el departamento','error');
+        .subscribe(result => {
+          this.CargaXUsuario();
+        });
+    } else {
+      Swal.fire('Error de validación', 'La queja ya fue vista por el departamento', 'error');
     }
-   
+
 
 
   }
 
   complaindatail(item: any) {
-    this.Description =  item.Description
+    this.Description = item.Description
     $('#complaindatail').modal('show');
 
   }
@@ -185,22 +243,22 @@ export class ComplainComponent implements OnInit {
 
   open(content) {
 
-    if(this.department_Id == '-1'){
-      Swal.fire('Error','Debe seleccionar un departamento','error');
+    if (this.department_Id == '-1') {
+      Swal.fire('Error', 'Debe seleccionar un departamento', 'error');
       return;
     }
 
     this._complainService.ListaFuncionarios(this.depSeleccion)
-    .subscribe(result => {
+      .subscribe(result => {
 
-      var funcionarios = result.funcionarios;
-      this.funcionarios = funcionarios;
-      console.log(this.funcionarios);
-
-    })
+        var funcionarios = result.funcionarios;
+        this.funcionarios = funcionarios;
 
 
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"  }).result.then((result) => {
+      })
+
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: "myCustomModalClass" }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -213,7 +271,7 @@ export class ComplainComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 

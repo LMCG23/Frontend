@@ -27,6 +27,12 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     this.user = new Usuario(this.usuarioService.usuario.usuario_Id,this.usuarioService.usuario.nombre,this.usuarioService.usuario.rol,'',this.usuarioService.usuario.persona,this.usuarioService.usuario.departamento);
+  
+    this.user.photo = this.usuarioService.usuario.photo;
+    
+    if(this.user.photo == ''){
+      this.user.photo = '/assets/img/theme/no_user_logo -2.png';
+    }
 
   }
   getTitle(){

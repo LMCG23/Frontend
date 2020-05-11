@@ -21,11 +21,15 @@ export class NewsComponent implements OnInit {
   listNews: News[] = [];
   ingresando: boolean = false;
   message: string;
-
-
+  hasta:string='';
+  filtro:string='';
   descripcion:string = '';
+  fileToUpload:string = ''
   titulo:string ='';
 
+  //pagination
+  page:number = 1;
+  pageSize:number = 10;
 
 
   constructor(
@@ -39,7 +43,7 @@ export class NewsComponent implements OnInit {
 
   inicio() {
     this.GetAllNews();
-    this.Noticia = new News( '', '', '');
+    this.Noticia = new News( '', '', '','');
     this.Noticia.fileToUpload = 'http://placehold.it/180';
   }
 
@@ -50,9 +54,7 @@ export class NewsComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    // this.Noticia.descripcion = form.value.descripcion;
-    // this.Noticia.titulo = form.value.titulo;
-    // this.Noticia.fileToUpload = this.url;
+ 
     this.message = this.validar();
     if (this.message == '') {
     this.ingresando = true;
@@ -60,8 +62,10 @@ export class NewsComponent implements OnInit {
       .subscribe( result =>{
         this.url= 'http://placehold.it/180';
         this.ingresando = false;
+        
         this.GetAllNews();
         this.inicio();
+      
       } );
 
     
@@ -75,7 +79,7 @@ export class NewsComponent implements OnInit {
 
 
   GetAllNews(){
-    this._NewService.ObtenerNoticias()
+    this._NewService.ObtenerNoticiasFiltro(this.hasta,this.filtro)
     .subscribe(result => {
       this.listNews = result.Noticias;
       console.log(this.listNews);
@@ -92,8 +96,8 @@ export class NewsComponent implements OnInit {
   }
 
   Detail(item:any){
-    this.Noticia = Object.assign({},item)
-    $('#newsdatail').modal('show');
+    this.descripcion = item.descripcion
+    this.fileToUpload = item.fileToUpload
 
   }
 
@@ -132,18 +136,7 @@ readUrl(event:any) {
        
           this.Noticia.fileToUpload = event.target.result;
           
-        //   console.log("url normal=" +this.url);
-        //   var archivo=event.target.result;
-        //   console.log("archivo normal=" +archivo);
-
-        
-        // console.log("formato normal=" +fileName);
-        // archivo2= archivo.replace("data:" + fileName + ";base64,", "");
-        // console.log("archivo replace=" +archivo2);
-        
-// this.url=archivo2;
-          // https://stackoverflow.com/questions/51533584/converting-an-image-to-binary-in-javascript-using-base64
-      }
+           }
 
       reader.readAsDataURL(event.target.files[0]);
       
@@ -184,6 +177,28 @@ validar() {
         return  `with: ${reason}`;
       }
     }
+
+
+    open2(content,item:any) {
+      this.Detail(item);
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"  }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
+
+    private getDismissReason2(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+      } else {
+        return  `with: ${reason}`;
+      }
+    }
+
+
 
 
 

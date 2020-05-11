@@ -10,8 +10,9 @@ export class Usuario {
         public rol:number,
         public password: string,
         public persona:Persona,
-        public departamento:Department
-        //esto podria dar problemas
+        public departamento:Department,
+        public photo?:any
+        
 
     ) { }
 

@@ -15,6 +15,7 @@ import { DenounceComponent } from '../../pages/denounce/denounce.component';
 import { FuncionaryComponent } from '../../pages/funcionary/funcionary.component';
 import { DepartmentsComponent } from '../../pages/departments/departments.component';
 import { DenounceManageComponent } from '../../pages/denounce-manage/denounce-manage.component';
+import { EditprofileComponent } from '../../pages/editprofile/editprofile.component';
 
 // import { ToastrModule } from 'ngx-toastr';
 
@@ -38,6 +39,8 @@ import { DenounceManageComponent } from '../../pages/denounce-manage/denounce-ma
     DepartmentsComponent,
     MapsComponent,
     DenounceManageComponent,
+    EditprofileComponent
+
   ]
 })
 
