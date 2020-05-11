@@ -14,6 +14,8 @@ import { ComplainComponent } from '../../pages/complain/complain.component';
 import { DenounceComponent } from '../../pages/denounce/denounce.component';
 import { FuncionaryComponent } from '../../pages/funcionary/funcionary.component';
 import { DepartmentsComponent } from '../../pages/departments/departments.component';
+import { DenounceManageComponent } from '../../pages/denounce-manage/denounce-manage.component';
+
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -34,7 +36,8 @@ import { DepartmentsComponent } from '../../pages/departments/departments.compon
     DenounceComponent,
     FuncionaryComponent,
     DepartmentsComponent,
-    MapsComponent
+    MapsComponent,
+    DenounceManageComponent,
   ]
 })
 
