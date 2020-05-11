@@ -56,12 +56,26 @@ console.log(url);
       .pipe(
         map((resp: ApiResponse) => Swal.fire(  'Denuncia',  resp.message,  'success' ))
       );
-
-  
   }
 
+  ListDenuncesbyDepartment(Department_id:number) {
+    let url = `${URL_SERVICE}/Denuncias/ListDenouncesbyDepartment/${Department_id}`;
+    return this.http.get( url)
+    .pipe(
+        map((resp: ApiResponse) => resp.result)
+      );
+  }
 
+  updatedenouncexadmin(Denuncia:Denounce) {
 
+    let url = `${URL_SERVICE}/Denounce/UpdateDenouncebyAdmin/${Denuncia}`;
+
+    return this.http.post( url,Denuncia)
+      .pipe(
+        map((resp: ApiResponse) => Swal.fire( 'Denuncia',  resp.message,  'success' ) )
+      );
+
+  }
 
 
 }

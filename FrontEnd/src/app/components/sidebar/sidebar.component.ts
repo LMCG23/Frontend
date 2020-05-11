@@ -16,6 +16,7 @@ export const ROUTES: RouteInfo[] = [
    { path: '/Denounce', title: 'Denuncias',  icon:'ni-pin-3 text-orange', class: '' },
     { path: '/Funcionary', title: 'Funcionarios',  icon:'ni-single-02 text-yellow', class: '' },
     { path: '/Departments', title: 'Departamentos',  icon:'ni-bullet-list-67 text-red', class: '' },
+    { path: '/DenounceManage', title: 'Gestor De Denuncias',  icon:'ni-bullet-list-67 text-red', class: '' },
     // { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
     // { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }
 ];

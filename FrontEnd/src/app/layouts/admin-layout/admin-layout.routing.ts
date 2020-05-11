@@ -10,6 +10,7 @@ import {ComplainComponent} from '../../pages/complain/complain.component'
 import { DenounceComponent } from '../../pages/denounce/denounce.component';
 import { FuncionaryComponent } from '../../pages/funcionary/funcionary.component';
 import { DepartmentsComponent } from '../../pages/departments/departments.component';
+import { DenounceManageComponent } from '../../pages/denounce-manage/denounce-manage.component';
 import { EditprofileComponent } from '../../pages/editprofile/editprofile.component';
 
 export const AdminLayoutRoutes: Routes = [
@@ -21,6 +22,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'Denounce',           component: DenounceComponent },
     { path: 'Funcionary',           component: FuncionaryComponent },
     { path: 'Departments',           component: DepartmentsComponent },
+    { path: 'maps',           component: MapsComponent },
+    { path: 'DenounceManage',           component: DenounceManageComponent },
     { path: 'EditProfile',           component: EditprofileComponent },
     { path: 'maps',           component: MapsComponent }
 
