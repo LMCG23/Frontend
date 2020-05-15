@@ -116,6 +116,25 @@ ListaDepartamentos() {
   }
 
 
+  AllComplains() {
+    let url = `${URL_SERVICE}/Complain/AllComplains`;
+
+    return this.http.get( url)
+    .pipe(
+        map((resp: ApiResponse) => resp.result)
+      );
+  }
+  UpdateComplainbyAdmin( queja:Complain) {
+
+    let url = `${URL_SERVICE}/complain/UpdateComplainbyAdmin/${queja}`;
+
+    return this.http.post( url,queja)
+      .pipe(
+        map((resp: ApiResponse) => Swal.fire( 'Se ha actualizado la queja',  resp.message,  'success' ) )
+      );
+
+  }
+
 
 
 
