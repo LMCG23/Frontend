@@ -209,9 +209,12 @@ export class UsuarioService {
 
   }
 
-
-
-
-
+  PersonbyId(Person_Id: number) {
+    let url = `${URL_SERVICE}/usuario/PersonbyId/${Person_Id}`;
+    return this.http.get(url)
+      .pipe(
+        map((resp: ApiResponse) => resp.result)
+      );
+  }
 
 }

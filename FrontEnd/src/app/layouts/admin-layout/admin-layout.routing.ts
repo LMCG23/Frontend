@@ -12,6 +12,7 @@ import { FuncionaryComponent } from '../../pages/funcionary/funcionary.component
 import { DepartmentsComponent } from '../../pages/departments/departments.component';
 import { DenounceManageComponent } from '../../pages/denounce-manage/denounce-manage.component';
 import { EditprofileComponent } from '../../pages/editprofile/editprofile.component';
+import { ComplainManageComponent } from '../../pages/complain-manage/complain-manage.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -25,6 +26,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'DenounceManage',           component: DenounceManageComponent },
     { path: 'EditProfile',           component: EditprofileComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'maps',           component: MapsComponent },
+    { path: 'ComplainManage',           component: ComplainManageComponent}
 
 ];
