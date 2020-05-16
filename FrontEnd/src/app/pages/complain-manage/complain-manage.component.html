@@ -101,8 +101,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <thead
-                            style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                        <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
                             <tr>
                                 <th class="text-center">#</th>
                                 <th class="text-center">Estado</th>
@@ -125,7 +124,7 @@
                                 </td>
                                 <td class="text-center w-150">
 
-                                    <button type="button" class="btn btn-cyan" (click)="EditComplain(item)">
+                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Editar Queja" (click)="EditComplain(item)">
                                         <i class="material-icons">update</i>
                                     </button>
 
@@ -225,7 +224,7 @@
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label>Estado </label>
-                            <select [(ngModel)]="complain.state" class="form-control"required>
+                            <select [(ngModel)]="complain.state" class="form-control" required>
                                 <option value="Pendiente">Pendiente</option>
                                 <option value="En Proceso">En Proceso</option>
                                 <option value="Procesada">Procesada</option>
@@ -235,7 +234,7 @@
                     </div>
 
 
-                    
+
 
                 </div>
 
@@ -280,9 +279,7 @@
                     <div class="col-lg-12">
                         <div class="form-group ">
                             <label>Respuesta</label>
-                            <input type="textarea" [(ngModel)]="complain.Answer" id="form3" required
-                                class="form-control validate" style="min-height: 100px;"
-                                placeholder="Inserte La Respuesta a la Denuncia">
+                            <input type="textarea" [(ngModel)]="complain.Answer" id="form3" required class="form-control validate" style="min-height: 100px;" placeholder="Inserte La Respuesta a la Denuncia">
                         </div>
 
 

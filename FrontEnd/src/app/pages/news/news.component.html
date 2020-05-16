@@ -1,164 +1,159 @@
 <div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
-  <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-      <div class="row d-flex justify-content-center">
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Card stats -->
+            <div class="row d-flex justify-content-center">
 
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Fecha de caducidad</h5>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Fecha de caducidad</h5>
 
+                                </div>
+                                <div class="col-auto">
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input name="desde" [(ngModel)]="hasta" (change)="GetAllNews()" type="date" class="form-control ">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto">
-
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Título</h5>
+                                    <span class="h2 font-weight-bold mb-0"></span>
+                                </div>
+                                <div class="col-auto">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input name="titulo" [(ngModel)]="filtro" (keyup)="GetAllNews()" type="text" class="form-control " placeholder="buscar por título">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-12">
-                <input name="desde" [(ngModel)]="hasta" (change)="GetAllNews()" type="date" class="form-control ">
-              </div>
+
             </div>
-          </div>
         </div>
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Título</h5>
-                  <span class="h2 font-weight-bold mb-0"></span>
-                </div>
-                <div class="col-auto">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <input name="titulo" [(ngModel)]="filtro" (keyup)="GetAllNews()" type="text" class="form-control "
-                  placeholder="buscar por título">
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="row animated fadeIn">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
 
 
 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
-                <th class="text-center">#</th>
-                <th class="text-center">Título</th>
-                <th class="text-center">Fecha de caducidad</th>
-                <th class="text-center w-150">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of listNews | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                <td class="text-center ">
-                  {{ item.new_id }}
-                </td>
-                <td class="text-center ">
-                  {{ item.titulo }}
-                </td>
-                <td class="text-center ">
-                  {{ item.expired | date:'yyyy-MM-dd' }}
-                </td>
-                <td class="text-center w-150">
-                  <button type="button" class="btn btn-cyan" (click)="open2(modaldetails,item)">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                                <th class="text-center">#</th>
+                                <th class="text-center">Título</th>
+                                <th class="text-center">Fecha de caducidad</th>
+                                <th class="text-center w-150">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listNews | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                <td class="text-center ">
+                                    {{ item.new_id }}
+                                </td>
+                                <td class="text-center ">
+                                    {{ item.titulo }}
+                                </td>
+                                <td class="text-center ">
+                                    {{ item.expired | date:'yyyy-MM-dd' }}
+                                </td>
+                                <td class="text-center w-150">
+                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Mostrar Noticia" (click)="open2(modaldetails,item)">
                     <i class="material-icons">info</i>
                   </button>
-                  <button type="button" class="btn btn-cyan" (click)="edit(item)">
+                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Editar Noticia" (click)="edit(item)">
                     <i class="material-icons">update</i>
                   </button>
-                  <button type="button" class="btn btn-danger" (click)="deletenew(item)">
+                                    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Borrar Noticia" (click)="deletenew(item)">
                     <i class="material-icons">delete</i>
                   </button>
-                </td>
+                                </td>
 
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="6">
-                  <ngb-pagination class="d-flex justify-content-center" [(page)]="page"
-                    [collectionSize]="listNews.length" [boundaryLinks]="true" [rotate]="true" [ellipses]="false"
-                    [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [collectionSize]="listNews.length" [boundaryLinks]="true" [rotate]="true" [ellipses]="false" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="row animated fadeIn" id="titulo">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <form ngNativeValidate #f="ngForm" (ngSubmit)="ingresar(f)" class="form-login">
-          <div class="row">
-            <div class="form-group col-md-4">
-              <label>Título</label>
-              <input [(ngModel)]="Noticia.titulo" name="titulo" type="text" class="form-control validate"
-                placeholder="Título" required>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="ingresar(f)" class="form-login">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Título</label>
+                            <input [(ngModel)]="Noticia.titulo" name="titulo" type="text" class="form-control validate" placeholder="Título" required>
 
-            </div>
+                        </div>
 
-            <div class="form-group col-md-4">
-              <label>Fecha de caducidad</label><br>
-              <input [(ngModel)]="Noticia.expired" name="expired" type="date" class="form-control validate"
-                placeholder="Título" required>
-            </div>
+                        <div class="form-group col-md-4">
+                            <label>Fecha de caducidad</label><br>
+                            <input [(ngModel)]="Noticia.expired" name="expired" type="date" class="form-control validate" placeholder="Título" required>
+                        </div>
 
-            <div class="form-group col-md-4">
-              <label>Escoger foto</label><br>
-              <button (click)="open(mymodal)" type="button" class="btn btn-cyan" [disabled]="ingresando">
+                        <div class="form-group col-md-4">
+                            <label>Escoger foto</label><br>
+                            <button (click)="open(mymodal)" type="button" class="btn btn-cyan" [disabled]="ingresando">
                 <i class="material-icons">photo</i> Agregar
               </button>
-            </div>
+                        </div>
 
 
-          </div>
+                    </div>
 
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label>Descripción</label>
-              <textarea [(ngModel)]="Noticia.descripcion" name="descripcion" class="form-control validate" required>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>Descripción</label>
+                            <textarea [(ngModel)]="Noticia.descripcion" name="descripcion" class="form-control validate" required>
 
                         </textarea>
-            </div>
+                        </div>
 
-          </div>
+                    </div>
 
-          <div class="float-right">
+                    <div class="float-right">
 
-            <button type="submit" class="btn btn-success" [disabled]="ingresando">
+                        <button type="submit" class="btn btn-success" [disabled]="ingresando">
               <i class="material-icons">save</i> Guardar
 
             </button>
 
 
-            <button type="button" (click)="inicio()" class="btn btn-secondary" [disabled]="ingresando">Cancelar</button>
+                        <button type="button" (click)="inicio()" class="btn btn-secondary" [disabled]="ingresando">Cancelar</button>
 
-          </div>
-        </form>
-      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 
 
 
@@ -167,65 +162,65 @@
 
 <!--agregar photo-->
 <ng-template #mymodal let-modal>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalScrollableTitle">Seleccione una foto</h5>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">Seleccione una foto</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
       </button>
-    </div>
-    <div class="modal-body">
+        </div>
+        <div class="modal-body">
 
-      <input type='file' (change)="readUrl($event)">
-      <img id='Img1' [src]="Noticia.fileToUpload">
+            <input type='file' (change)="readUrl($event)">
+            <img id='Img1' [src]="Noticia.fileToUpload">
 
 
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="GuardarFotos()   " (click)="modal.dismiss('Cross click')">Aceptar</button>
+        </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="GuardarFotos()   "  (click)="modal.dismiss('Cross click')">Aceptar</button>
-    </div>
-  </div>
 
 </ng-template>
 
 
 <!-- news details -->
-<ng-template #modaldetails let-modal >
+<ng-template #modaldetails let-modal>
 
-      <div class="modal-content">
-          <div class="modal-header text-center">
-              <h1 class="modal-title white-text text-left w-100 font-weight-bold py-2">Detalle de la noticia</h1>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-content">
+        <div class="modal-header text-center">
+            <h1 class="modal-title white-text text-left w-100 font-weight-bold py-2">Detalle de la noticia</h1>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">×</span>
               </button>
-          </div>
-          <div class="modal-body">
+        </div>
+        <div class="modal-body">
 
 
-          
-              <div class="row">
-                  <div class="col-md-12 text-center">
-                      <h2>Descripción</h2>
-                     <h4>{{descripcion}} </h4>
-                  </div>
-              </div>
-              <br><br>
-              <div class="row">
-                  <div class="col-md-12 text-center">
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Descripción</h2>
+                    <h4>{{descripcion}} </h4>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-12 text-center">
                     <h2>Imagen ilustrativa</h2><br>
-                      <img id='Img1' [src]="fileToUpload">
-                  </div>
+                    <img id='Img1' [src]="fileToUpload">
+                </div>
 
-              </div>
+            </div>
 
 
-              
-          </div>
-          
 
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary"   (click)="modal.dismiss('Cross click')" >Cerrar</button>
-          </div>
-      </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cerrar</button>
+        </div>
+    </div>
 
 </ng-template>

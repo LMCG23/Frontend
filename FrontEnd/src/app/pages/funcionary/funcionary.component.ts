@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CryptoService, UsuarioService, ComplainService } from 'src/app/services/service.index';
-import { Usuario, Persona, Departamento, Role,Department } from 'src/app/models/model.index';
+import { Usuario, Persona, Departamento, Role, Department } from 'src/app/models/model.index';
 
 @Component({
   selector: 'app-funcionary',
@@ -48,18 +48,18 @@ export class FuncionaryComponent implements OnInit {
         this.roles = roles;
         console.log(this.roles);
       });
-      this.ListaDeUsuarios();
+    this.ListaDeUsuarios();
 
 
   }
 
-  ListaDeUsuarios(){
+  ListaDeUsuarios() {
     this._usuarioService.AllUsers()
-    .subscribe(result => {
-      var users = result.users;
-      this.users = users;
-      console.log(this.users);
-    });
+      .subscribe(result => {
+        var users = result.users;
+        this.users = users;
+        console.log(this.users);
+      });
 
   }
 
@@ -99,13 +99,13 @@ export class FuncionaryComponent implements OnInit {
   }
 
 
-  deleteUser(item:any){
+  deleteUser(item: any) {
     this._usuarioService.DeleteUser(item.usuario_Id)
-    .subscribe(result => {
-      this.ListaDeUsuarios();
-      this.inicio();
-    } );
-  
+      .subscribe(result => {
+        this.ListaDeUsuarios();
+        this.inicio();
+      });
+
   }
 
 
@@ -115,15 +115,15 @@ export class FuncionaryComponent implements OnInit {
     this.validar();
     if (this.errormsj == '') {
 
-     this.Persona.persona_Id = parseInt(this.Persona.strId);
+      this.Persona.persona_Id = parseInt(this.Persona.strId);
       this.Usuario.password = this._cryptoService.encryptPassword(this.passwordRegister);
       this.Usuario.persona = this.Persona;
-      console.log( this.Usuario);
+      console.log(this.Usuario);
       this._usuarioService.signin(this.Usuario)
-      .subscribe(() => {
-        this.ListaDeUsuarios();
-        this.inicio();
-      })
+        .subscribe(() => {
+          this.ListaDeUsuarios();
+          this.inicio();
+        })
     }
 
   }
