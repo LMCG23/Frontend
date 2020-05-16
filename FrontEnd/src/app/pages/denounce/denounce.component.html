@@ -120,7 +120,7 @@
                                     {{ item.state }}
                                 </td>
                                 <td class="text-center w-150">
-                                    <button type="button" class="btn btn-cyan" (click)="denouncesdatail(item)">
+                                    <button type="button" class="btn btn-cyan" (click)="open2(denouncesdatail,item)">
                                         <i class="material-icons">info</i>
                                     </button>
                                     <button type="button" class="btn btn-cyan" (click)="EditDenounce(item)">
@@ -169,15 +169,16 @@
 
                   <div class=" form-group col-md-2">
                       <label>Ubicacion</label>
-                      <div class="input-group">
-                          <button (click)="open(mymodal)" type="button" class="btn btn-cyan" [disabled]="guardando">
+                      <!-- <div class="input-group">
+                          <button (click)="open3(mymodalLocation)" type="button" class="btn btn-cyan" [disabled]="guardando">
                               <i class="material-icons">photo</i> Agregar
-                          </button>
-                      </div>
+                          </button> -->
+                          <div #mapContainer id="map"></div>
+                      <!-- </div> -->
                   </div>
                   <div class="form-group col-md-2">
                       <label>Escoger foto</label><br>
-                      <button (click)="AddPhoto()" type="button" class="btn btn-cyan" [disabled]="guardando">
+                      <button (click)="open(mymodal)" type="button" class="btn btn-cyan" [disabled]="guardando">
                           <i class="material-icons">photo</i> Agregar
                       </button>
                   </div>
@@ -218,40 +219,38 @@
 
 
 <!--agregar photo-->
-<div class="modal fade " id="addphoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
-    aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-scrollable " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Seleccione una foto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeU()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <input type='file' (change)="readUrl($event)">
-                <img id='Img1' [src]="denuncia.Photo">
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="GuardarFotos()">Aceptar</button>
-            </div>
-        </div>
+<ng-template #mymodal let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalScrollableTitle">Seleccione una foto</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-</div>
+    <div class="modal-body">
+
+      <input type='file' (change)="readUrl($event)">
+      <img id='Img1' [src]="denuncia.Photo">
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary"  (click)="modal.dismiss('Cross click')">Aceptar</button>
+    </div>
+  </div>
+
+</ng-template>
 
 
 
 
 <!--agregar UBICACION-->
-<ng-template #mymodal let-modal>
+<ng-template #mymodalLocation let-modal>
     
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalScrollableTitle">UBICACION</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeI()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -271,61 +270,45 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="GuardarUbicacion()">Aceptar</button>
+                <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Aceptar</button>
             </div>
         </div>
     
   </ng-template>
 
+<ng-template #denouncesdatail let-modal>
+    
+  <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Descripcion de la Denuncia</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class=" ">
 
-<!--denounces details-->
-<div class="modal fade " id="denouncesdatail" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
-    aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Detalle de la denuncia</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-
-                <div class="row">
-                    <div class="form-group col-md-12 text-center">
-                        <label>Descripción</label>
-                        <label  class="form-control validate" required>
-                            {{Description}}
-                        </label>
-                    </div>
-                </div>
+          <div class="table-responsive">
+              <div style=" height: 20rem !important; overflow: scroll; align-content: center;">
 
 
-
-                <div class="row d-flex justify-content-center">
-                    <div class="form-group d-flex justify-content-center">
-
-                        <img id='Img1' [src]="denuncia.Photo">
-                    </div>
-
-                </div>
+                <label>Descripción</label>
+                <label  class="form-control validate" required>
+                    {{denuncia.Description}}
+                </label>
 
 
+              </div>
 
 
+          </div>
 
-            </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Aceptar</button>
+      </div>
+  </div>
 
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+</ng-template>
 
 
 
