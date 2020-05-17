@@ -1,228 +1,224 @@
 <div class="header  pb-8 pt-5 pt-md-8" style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
-  <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-      <div class="row">
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Desde</h5>
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Card stats -->
+            <div class="row">
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Desde</h5>
+
+                                </div>
+                                <br>
+                                <div class="col-auto">
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input name="desde" [(ngModel)]="desde" type="date" class="form-control ">
+                                <br>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-                <br>
-                <div class="col-auto">
-                  <div>
-
-                  </div>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Hasta</h5>
+                                </div>
+                                <br>
+                                <div class="col-auto">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input name="hasta" [(ngModel)]="hasta" (change)="list()" type="date" class="form-control ">
+                                <br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-12">
-                <input name="desde" [(ngModel)]="desde"  type="date" class="form-control ">
-                <br>
-              </div>
-            </div>
-          </div>
-        
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Hasta</h5>
-                </div>
-                <br>
-                <div class="col-auto">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <input name="hasta" [(ngModel)]="hasta" (change)="list()" type="date" class="form-control ">
-                <br>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Estado</h5>
-                </div>
-              </div>
-              <div class="form-group col-md-12">
-                <select [(ngModel)]="Complainstate" (change)="list()" class="form-control" required>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Estado</h5>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <select [(ngModel)]="Complainstate" (change)="list()" class="form-control" required>
                   <option value="-1">-- TODOS --</option>
                   <option value="Pendiente"> Pendiente </option>
                   <option value="En proceso"> En proceso </option>
                   <option value="Procesada">Procesada </option>
                 </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Departamento</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card card-stats mb-4 mb-xl-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Departamento</h5>
+                                </div>
 
-              </div>
-              <div class="form-group col-md-12">
-                <select [(ngModel)]="departmentid_Filter" (change)="list()" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <select [(ngModel)]="departmentid_Filter" (change)="list()" class="form-control" required>
                   <option value="-1">-- TODOS --</option>
                   <option *ngFor="let item of departmens" [value]="item.name">
                     {{ item.name }}
                   </option>
                 </select>
-              </div>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="row animated fadeIn">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
 
-        <div class="row animated fadeIn">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-body">
+                <div class="row animated fadeIn">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
 
 
 
-                <div class="table-responsive" style="overflow-x: scroll;">
-                  <table class="table table-hover">
-                    <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
-                      <tr>
-                        <th class=" ">#</th>
-                        <th class=" ">Fecha</th>
-                        <th class=" ">Departamento</th>
-                        <th class=" ">Funcionario</th>
-                        <th class=" ">Estado</th>
+                                <div class="table-responsive" style="overflow-x: scroll;">
+                                    <table class="table table-hover">
+                                        <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                                            <tr>
+                                                <th class=" ">#</th>
+                                                <th class=" ">Fecha</th>
+                                                <th class=" ">Departamento</th>
+                                                <th class=" ">Funcionario</th>
+                                                <th class=" ">Estado</th>
 
-                        <th class="text-center w-150">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                                                <th class="text-center w-150">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                      <tr *ngFor="let item of complains | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                            <tr *ngFor="let item of complains | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
 
-                        <td class="">
-                          {{ item.Complain_Id }}
-                        </td>
-                        <td class=" ">
-                          {{ item.fecha | date:'yyyy-MM-dd' }}
-                        </td>
-                        <td class=" ">
-                          {{ item.departmentname }}
-                        </td>
-                        <td class=" ">
-                          {{ item.employee_name }}
-                        </td>
-                        <td class=" ">
-                          {{ item.state }}
-                        </td>
+                                                <td class="">
+                                                    {{ item.Complain_Id }}
+                                                </td>
+                                                <td class=" ">
+                                                    {{ item.fecha | date:'yyyy-MM-dd' }}
+                                                </td>
+                                                <td class=" ">
+                                                    {{ item.departmentname }}
+                                                </td>
+                                                <td class=" ">
+                                                    {{ item.employee_name }}
+                                                </td>
+                                                <td class=" ">
+                                                    {{ item.state }}
+                                                </td>
 
-                        <td class="text-center w-150">
-                          <button type="button" class="btn btn-cyan" (click)="complaindatail(item)">
+                                                <td class="text-center w-150">
+                                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Detalles de Queja" (click)="complaindatail(item)">
                             <i class="material-icons">info</i>
                           </button>
-                          <button type="button" class="btn btn-cyan" (click)="EditComplain(item)">
+                                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Editar Queja" (click)="EditComplain(item)">
                             <i class="material-icons">update</i>
                           </button>
-                          <button type="button" class="btn btn-danger" (click)="deleteComplain(item)">
+                                                    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Borrar Queja" (click)="deleteComplain(item)">
                             <i class="material-icons">delete</i>
                           </button>
-                        </td>
+                                                </td>
+                                            </tr>
 
-                      </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="6">
+                                                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [collectionSize]="complains.length" [boundaryLinks]="true" [rotate]="true" [ellipses]="false" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
 
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td colspan="6">
-                          <ngb-pagination class="d-flex justify-content-center" [(page)]="page"
-                            [collectionSize]="complains.length" [boundaryLinks]="true" [rotate]="true"
-                            [ellipses]="false" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
-                        </td>
-                      </tr>
-                    </tfoot>
-                  </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-              </div>
             </div>
-          </div>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
 
 
 <div class="row animated fadeIn" id="titulo">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="form-group col-md-6">
-            <label>Departamento</label>
-            <select [(ngModel)]="department_Id" (change)="capturar( item )" class="form-control" required>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Departamento</label>
+                        <select [(ngModel)]="department_Id" (change)="capturar( item )" class="form-control" required>
               <option value="-1">-- Seleccione un departamento --</option>
               <option *ngFor="let item of departmens" [value]="item.department_Id">
                 {{ item.name }}
               </option>
             </select>
-          </div>
+                    </div>
 
-          <div class="col-md-6">
-            <label>Funcionario</label>
-            <div class="input-group">
-              <input [(ngModel)]="Funcio.nombre" name="employee" type="text" class="form-control"
-                placeholder="Insertar funcionario" [value]="employee" required disabled>
-              <span class="input-group-btn">
+                    <div class="col-md-6">
+                        <label>Funcionario</label>
+                        <div class="input-group">
+                            <input [(ngModel)]="Funcio.nombre" name="employee" type="text" class="form-control" placeholder="Insertar funcionario" [value]="employee" required disabled>
+                            <span class="input-group-btn">
                 <button class="btn btn-primary" (click)="open(mymodal)">
                   <i class="material-icons">search</i>
                 </button>
               </span>
-            </div>
-          </div>
-        </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="row">
-          <div class="form-group col-md-12">
-            <label>Descripción</label>
-            <textarea [(ngModel)]="queja.Description" class="form-control" required>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label>Descripción</label>
+                        <textarea [(ngModel)]="queja.Description" class="form-control" required>
 
                       </textarea>
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-        <div class="float-right">
-          <button type="submit" class="btn btn-success" (click)="enviar()" [disabled]="guardando">
+                <div class="float-right">
+                    <button type="submit" class="btn btn-success" (click)="enviar()" [disabled]="guardando">
             <i class="material-icons">save</i> Guardar
           </button>
 
-          <button (click)="nuevo()" type="button" class="btn btn-secondary" [disabled]="cancelando">
+                    <button (click)="nuevo()" type="button" class="btn btn-secondary" [disabled]="cancelando">
             <i class="material-icons">clear</i> Cancelar
           </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 
@@ -230,106 +226,104 @@
 
 <ng-template #mymodal let-modal>
 
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 class="modal-title" id="">Funcionarios</h3>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="">Funcionarios</h3>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
       </button>
-    </div>
-    <div class="modal-body">
-      <div *ngIf="FormValidation">
-        <div class="alert alert-danger" role="alert">
-          {{ErrorMessage}}
         </div>
-      </div>
+        <div class="modal-body">
+            <div *ngIf="FormValidation">
+                <div class="alert alert-danger" role="alert">
+                    {{ErrorMessage}}
+                </div>
+            </div>
 
-      <div class="input-group " style="margin-bottom: 16px;">
-        <input [(ngModel)]="criterio" name="criterio" (keyup)="cargarClientes()" type="text" class="form-control"
-          placeholder="Nombre del funcionario...">
-        <div class="input-group-append">
-          <button (click)="limpiaCriterio()" class="btn btn-outline-danger no-border" type="button">
+            <div class="input-group " style="margin-bottom: 16px;">
+                <input [(ngModel)]="criterio" name="criterio" (keyup)="cargarClientes()" type="text" class="form-control" placeholder="Nombre del funcionario...">
+                <div class="input-group-append">
+                    <button (click)="limpiaCriterio()" class="btn btn-outline-danger no-border" type="button">
             <i class="material-icons">cancel</i>
           </button>
-        </div>
-      </div>
-      <div class="table-responsive" style="height: 24rem !important;">
-        <table class="table table-hover">
-          <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
-            <tr>
-              <th>Nombre</th>
-              <th>Apellido1</th>
-              <th>Apellido2</th>
-              <th>Seleccionar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of funcionarios">
-              <td>
-                {{ item.nombre }}
-              </td>
-              <td>
-                {{ item.apellido1 }}
-              </td>
-              <td>
-                {{ item.apellido2 }}
-              </td>
+                </div>
+            </div>
+            <div class="table-responsive" style="height: 24rem !important;">
+                <table class="table table-hover">
+                    <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido1</th>
+                            <th>Apellido2</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of funcionarios">
+                            <td>
+                                {{ item.nombre }}
+                            </td>
+                            <td>
+                                {{ item.apellido1 }}
+                            </td>
+                            <td>
+                                {{ item.apellido2 }}
+                            </td>
 
 
-              <td>
-                <button type="button" class="btn btn-cyan" (click)="agregarFuncionario(item)" (click)="modal.dismiss('Cross click')" >
+                            <td>
+                                <button type="button" class="btn btn-cyan" (click)="agregarFuncionario(item)" (click)="modal.dismiss('Cross click')">
                   <i class="material-icons">add</i>
                 </button>
-              </td>
+                            </td>
 
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
+        </div>
+        <div class="modal-footer">
+
+        </div>
     </div>
-    <div class="modal-footer">
-
-    </div>
-  </div>
 
 </ng-template>
 
 <!--denounces details-->
-<div class="modal fade " id="complaindatail" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
-  aria-hidden="true" data-backdrop="static">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Detalle de la queja</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal fade " id="complaindatail" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Detalle de la queja</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
+            </div>
+            <div class="modal-body">
 
 
 
-        <div class="row">
-          <div class="form-group col-md-12 text-center">
-            <label>Descripción</label>
-            <label class="form-control validate" required>
+                <div class="row">
+                    <div class="form-group col-md-12 text-center">
+                        <label>Descripción</label>
+                        <label class="form-control validate" required>
               {{Description}}
             </label>
-          </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-
-
-
-
-
-
-      </div>
-
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
     </div>
-  </div>
 </div>
