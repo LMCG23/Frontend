@@ -120,6 +120,7 @@ export class ComplainComponent implements OnInit {
     //   1200
     // );
 
+    // mostrar la persona de la queja, no carga mas usuarios luego de intentar editarla
     this.queja = Object.assign({}, item);
     this.department_Id = this.queja.department_id.toString();
   }
