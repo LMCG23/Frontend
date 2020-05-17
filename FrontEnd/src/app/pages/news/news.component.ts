@@ -43,7 +43,7 @@ export class NewsComponent implements OnInit {
 
   inicio() {
     this.GetAllNews();
-    this.Noticia = new News( '', '', '','');
+    this.Noticia = new News( '', '', '','',true);
     this.Noticia.fileToUpload = 'http://placehold.it/180';
   }
 
@@ -88,11 +88,29 @@ export class NewsComponent implements OnInit {
   }
 
   deletenew(item:any){
-    this._NewService.Delete(item.new_id)
-    .subscribe(result => {
-      this.inicio();
-    } );
-  
+    Swal.fire({
+      title: 'Esta segur@?',
+      text: "De que desea eliminar la noticia #" + item.new_id ,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar!',
+      cancelButtonText: ' Cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        this._NewService.Delete(item.new_id)
+        .subscribe(result => {
+          this.inicio();
+        } );
+      
+      }
+    })
+
+
+
+
+
   }
 
   Detail(item:any){
@@ -106,7 +124,6 @@ export class NewsComponent implements OnInit {
     this.descripcion =   Object.assign({},this.Noticia.descripcion);
     this.titulo = Object.assign({},this.Noticia.titulo);
     this.url = this.Noticia.fileToUpload;
-
     $('html, body').animate({
       scrollTop: $('#titulo').offset().top
     }, 1200);

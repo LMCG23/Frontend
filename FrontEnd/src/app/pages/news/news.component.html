@@ -1,50 +1,40 @@
-<div class="header pb-8 pt-5 pt-md-8" style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+<div class="header   pt-5 pt-md-7"   style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;" >
   <div class="container-fluid">
     <div class="header-body">
-      <!-- Card stats -->
-      <div class="row d-flex justify-content-center">
+   
+    </div>
+  </div>
+</div>
 
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Fecha de caducidad</h5>
+<br>
 
-                </div>
-                <div class="col-auto">
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
 
-                </div>
-              </div>
-              <div class="col-md-12">
-                <input name="desde" [(ngModel)]="hasta" (change)="GetAllNews()" type="date" class="form-control ">
-              </div>
-            </div>
+        <div class="row"> 
+          <div class="col-md-6">
+            <h5 class="card-title text-uppercase text-muted mb-0">Título</h5>
+            <input name="titulo" [(ngModel)]="filtro" (keyup)="GetAllNews()" type="text" class="form-control "
+              placeholder="buscar por título">
           </div>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Título</h5>
-                  <span class="h2 font-weight-bold mb-0"></span>
-                </div>
-                <div class="col-auto">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <input name="titulo" [(ngModel)]="filtro" (keyup)="GetAllNews()" type="text" class="form-control "
-                  placeholder="buscar por título">
-              </div>
-            </div>
+        
+          <div class="col-md-6">
+            <h5 class="card-title text-uppercase text-muted mb-0">Fecha de caducidad</h5>
+            <input name="desde" [(ngModel)]="hasta" (change)="GetAllNews()" type="date" class="form-control ">
           </div>
+     
         </div>
+      
+        
 
       </div>
     </div>
   </div>
 </div>
+
+<br>
 
 <div class="row animated fadeIn">
   <div class="col-12">
@@ -59,7 +49,8 @@
               <tr style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
                 <th class="text-center">#</th>
                 <th class="text-center">Título</th>
-                <th class="text-center">Fecha de caducidad</th>
+                <th class="text-center">Fecha de caducidad</th> 
+                <th class="text-center">Estado</th> 
                 <th class="text-center w-150">Acciones</th>
               </tr>
             </thead>
@@ -74,11 +65,17 @@
                 <td class="text-center ">
                   {{ item.expired | date:'yyyy-MM-dd' }}
                 </td>
+                <td class="text-center ">
+                  {{ item.Active ? 'Activo' : 'Inactivo'  }}
+                </td>
+
+
+
                 <td class="text-center w-150">
                   <button type="button" class="btn btn-cyan" (click)="open2(modaldetails,item)">
                     <i class="material-icons">info</i>
                   </button>
-                  <button type="button" class="btn btn-cyan" (click)="edit(item)">
+                  <button type="button" class="btn btn-cyan" (click)="EditNew(item)">
                     <i class="material-icons">update</i>
                   </button>
                   <button type="button" class="btn btn-danger" (click)="deletenew(item)">
@@ -104,6 +101,8 @@
     </div>
   </div>
 </div>
+
+<br>
 
 <div class="row animated fadeIn" id="titulo">
   <div class="col-12">
@@ -133,6 +132,23 @@
 
 
           </div>
+
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Activo</label>
+              <select [(ngModel)]="Noticia.Active" name="activo" class="form-control">
+                  <option value="false">NO</option>
+                  <option value="true">SI</option>
+              </select>
+          </div>
+
+          </div>
+
+
+         
+
+
 
           <div class="row">
             <div class="form-group col-md-12">

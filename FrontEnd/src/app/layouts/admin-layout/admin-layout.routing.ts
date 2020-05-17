@@ -14,6 +14,9 @@ import { DenounceManageComponent } from '../../pages/denounce-manage/denounce-ma
 import { EditprofileComponent } from '../../pages/editprofile/editprofile.component';
 import { ComplainManageComponent } from '../../pages/complain-manage/complain-manage.component';
 
+import { DashboardAdministradorComponent } from '../../pages/dashboard-administrador/dashboard-administrador.component';
+import { DashboardSuperUserComponent } from '../../pages/dashboard-super-user/dashboard-super-user.component';
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
@@ -27,6 +30,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'DenounceManage',           component: DenounceManageComponent },
     { path: 'EditProfile',           component: EditprofileComponent },
     { path: 'maps',           component: MapsComponent },
-    { path: 'ComplainManage',           component: ComplainManageComponent}
+    { path: 'ComplainManage',           component: ComplainManageComponent},
+    { path: 'Admin/dashboard',           component: DashboardAdministradorComponent},
+    { path: 'superUser/dashboard',           component: DashboardSuperUserComponent}
 
 ];

@@ -13,129 +13,154 @@ declare var $: any;
 })
 export class DepartmentsComponent implements OnInit {
   closeResult: string;
- // Pagination
- page: number = 1;
- pageSize: number = 5;
+  // Pagination
+  page: number = 1;
+  pageSize: number = 5;
 
-funcionarios: Funcionario[] = [];
-department: Department;
-Funcio: Funcionario;
-departmens: Department[] = [];
-constructor(
-  private _complainService: ComplainService,
-  private DeparmetService: DepartmentService,
-  private modalService: NgbModal
-) { }
+  funcionarios: Funcionario[] = [];
+  department: Department;
+  Funcio: Funcionario;
+  departmens: Department[] = [];
 
-ngOnInit() {
-  this.inicio();
-  this.list();
-}
-
-buscarEmployee() {
-  this._complainService.allfuncionary()
-    .subscribe(result => {
-      var funcionarios = result.funcionarios;
-      this.funcionarios = funcionarios;
-      $('#funcionarioSearch').modal('show');
-    })
-
-}
-
-inicio() {
-
-  this.department = new Department(-1, '', -1);
-  this.Funcio = new Funcionario('', '', '', -1);
-}
-
-validar(department: Department) {
-  if (department.name == '')
-    return 'Debe ingresar el nombre del departamento'
-  if (department.person_id == -1)
-    return 'Debe ingresar el encargado del departamento'
-  return '';
+  filter: string = ''
 
 
-}
 
-enviar() {
-  this.department.person_id = this.Funcio.Person_Id
-  let mensaje = this.validar(this.department);
+  constructor(
+    private _complainService: ComplainService,
+    private DeparmetService: DepartmentService,
+    private modalService: NgbModal
+  ) { }
 
-  if (mensaje != '') {
-    Swal.fire('Error', mensaje, 'error');
-  } else {
-    this.DeparmetService.Guardar(this.department)
-      .subscribe(() => {
-        this.list();
-        this.inicio();
+  ngOnInit() {
+    this.inicio();
+    this.list();
+  }
+
+  buscarEmployee() {
+    this._complainService.allfuncionary()
+      .subscribe(result => {
+        var funcionarios = result.funcionarios;
+        this.funcionarios = funcionarios;
+        $('#funcionarioSearch').modal('show');
       })
-      .add();
 
   }
 
+  inicio() {
+
+    this.department = new Department(-1, '', -1);
+    this.Funcio = new Funcionario('', '', '', -1);
+  }
+
+  validar(department: Department) {
+    if (department.name == '')
+      return 'Debe ingresar el nombre del departamento'
+    if (department.person_id == -1)
+      return 'Debe ingresar el encargado del departamento'
+    return '';
 
 
-}
+  }
 
-delete(item: any) {
+  enviar() {
+    this.department.person_id = this.Funcio.Person_Id
+    let mensaje = this.validar(this.department);
 
-  
-  this.DeparmetService.DeleteDenounce(item.department_Id)
-    .subscribe(result => {
-      this.list();
+    if (mensaje != '') {
+      Swal.fire('Error', mensaje, 'error');
+    } else {
+      this.DeparmetService.Guardar(this.department)
+        .subscribe(() => {
+          this.list();
+          this.inicio();
+        })
+        .add();
+
+    }
+
+
+
+  }
+
+  delete(item: any) {
+
+    Swal.fire({
+      title: 'Esta segur@?',
+      text: "De que desea eliminar el departamento " + item.name,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar!',
+      cancelButtonText: ' Cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        this.DeparmetService.Delete(item.department_Id)
+          .subscribe(result => {
+            this.list();
+          });
+      }
+    })
+
+
+  }
+
+  clearfilter() {
+    this.filter = '';
+    this.list();
+  }
+
+
+  list() {
+    this.DeparmetService.ListaDepartamentos(this.filter)
+      .subscribe(result => {
+        console.log(result);
+
+        var departmens = result.departamentos;
+        this.departmens = departmens;
+
+      })
+  }
+  agregarFuncionario(item: Funcionario) {
+
+    this.Funcio = item;
+
+    $('#funcionarioSearch').modal('toggle');
+  }
+
+  EditDepartment(item: any) {
+    this.department = Object.assign({}, item);
+    this.Funcio.Person_Id = this.department.person_id;
+    this.Funcio.nombre = item.personname;
+  }
+
+
+  open(content) {
+
+    this._complainService.allfuncionary()
+      .subscribe(result => {
+        var funcionarios = result.funcionarios;
+        this.funcionarios = funcionarios;
+      })
+
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: "myCustomModalClass" }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-}
-
-list() {
-  this._complainService.ListaDepartamentos()
-    .subscribe(result => {
-      console.log(result);
-      
-      var departmens = result.departamentos;
-      this.departmens = departmens;
-
-    })
-}
-agregarFuncionario(item: Funcionario) {
-
-  this.Funcio = item;
-
-  $('#funcionarioSearch').modal('toggle');
-}
-
-EditDepartment(item:any){
-  this.department = Object.assign({},item);
-  this.Funcio.Person_Id = this.department.person_id;
-  this.Funcio.nombre = item.personname;
-}
-
-
-open(content) {
-
-  this._complainService.allfuncionary()
-    .subscribe(result => {
-      var funcionarios = result.funcionarios;
-      this.funcionarios = funcionarios;
-    })
-
-
-  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"  }).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
-}
-
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return  `with: ${reason}`;
   }
-}
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 
 
 }

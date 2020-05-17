@@ -13,6 +13,17 @@ export class ComplainManageComponent implements OnInit {
   Person: any;
   complain:any;
 
+  newcomplaints:number = 0;
+  complaintsinprocess:number = 0;
+  attendedcomplaints:number = 0;
+
+  from : string = '';
+  to : string = '';
+  state : string='-1';
+
+  ComplainInformation:boolean = false;
+  ComplainEdit:boolean = false;
+
 
   constructor( private _UsuarioService: UsuarioService,
     private _ComplainService: ComplainService) {
@@ -27,30 +38,52 @@ export class ComplainManageComponent implements OnInit {
   start() {
     this.Person= new Persona(0,'','','','','','',);
     this.complain=new Complain(0,'','',0,0,'','',0,'');
-  this.allcomplains();
-
+    this.ComplainInformation=false
+    this.from= '';
+    this.to = '';
+    this.state = '-1'
+    this.allcomplains();
+    this.ComplainEdit = false;
   }
 
 
 
 allcomplains(){
-  this._ComplainService.AllComplains()
+  this._ComplainService.AllComplains(this.from,this.to,this.state)
   .subscribe(result => {
     var Complains = result.complains;
     this.Complains = Complains;
+
+    this.newcomplaints = result.newcomplaints ;        
+    this.complaintsinprocess = result.complaintsinprocess;
+    this.attendedcomplaints = result.attendedcomplaints;
+  console.log(result);
+  
   });
 }
 
   EditComplain(item: any) {
+    this.ComplainInformation = true;
     this.complain =  item;
     this._UsuarioService.PersonbyId(this.complain.person_Id)
     .subscribe(result=>{
       var Person = result.Persona;
       this.Person = Person;
-      console.log(this.Person);
+
     });
   }
 
+
+  ComplainProcess(item: any) {
+    this.ComplainEdit = true;
+    this.complain =  item;
+    this._UsuarioService.PersonbyId(this.complain.person_Id)
+    .subscribe(result=>{
+      var Person = result.Persona;
+      this.Person = Person;
+  
+    });
+  }
 
   save(){
     if (this.complain.Complain_Id == 0) {

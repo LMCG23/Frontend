@@ -17,7 +17,8 @@ import { DepartmentsComponent } from '../../pages/departments/departments.compon
 import { DenounceManageComponent } from '../../pages/denounce-manage/denounce-manage.component';
 import { EditprofileComponent } from '../../pages/editprofile/editprofile.component';
 import { ComplainManageComponent } from '../../pages/complain-manage/complain-manage.component';
-
+import { DashboardAdministradorComponent } from '../../pages/dashboard-administrador/dashboard-administrador.component';
+import { DashboardSuperUserComponent } from '../../pages/dashboard-super-user/dashboard-super-user.component';
 
 // import { ToastrModule } from 'ngx-toastr';
 
@@ -43,6 +44,8 @@ import { ComplainManageComponent } from '../../pages/complain-manage/complain-ma
     DenounceManageComponent,
     EditprofileComponent,
     ComplainManageComponent,
+    DashboardAdministradorComponent,
+    DashboardSuperUserComponent,
 
   ]
 })

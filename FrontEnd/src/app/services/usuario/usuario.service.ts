@@ -60,10 +60,46 @@ export class UsuarioService {
 
     return this.http.post(url, null)
       .pipe(
-        map((resp: ApiResponse) => this.guardarStorage(resp.result.token, resp.result.usuario, resp.result.usuario.departamento, resp.result.usuario.persona))
+        map((resp: ApiResponse) => {this.guardarStorage(resp.result.token, resp.result.usuario, resp.result.usuario.departamento, resp.result.usuario.persona)
+        if(resp.result.usuario.rol == 1){
+         this.router.navigate(['/superUser/dashboard'])
+
+        }
+        
+        if(resp.result.usuario.rol == 2){
+          this.router.navigate(['/Admin/dashboard'])
+          
+        }
+        
+        if(resp.result.usuario.rol == 3){
+          this.router.navigate(['/dashboard'])
+          
+        }
+        
+            
+        
+ 
+        
+
+        
+        })
       );
 
   }
+
+  funcionaryRegister(Usuario: Usuario) {
+
+    let url = `${URL_SERVICE}/usuario/save`;
+
+    return this.http.post(url, Usuario)
+      .pipe(
+        map((resp: ApiResponse) => Swal.fire( 'Registro exitoso',  resp.message,  'success' ))
+      );
+
+  }
+
+
+
 
   signin(Usuario: Usuario) {
 
@@ -175,9 +211,14 @@ export class UsuarioService {
 
   }
 
-  AllUsers() {
+  AllUsers(filter:string) {
 
-    let url = `${URL_SERVICE}/usuario/admi`;
+    if(filter == ''){
+filter = '_ALL_';
+
+    }
+
+    let url = `${URL_SERVICE}/usuario/admi/${filter}`;
 
     return this.http.get(url)
       .pipe(

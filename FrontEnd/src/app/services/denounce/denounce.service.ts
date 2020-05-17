@@ -58,19 +58,29 @@ console.log(url);
       );
   }
 
-  ListDenuncesbyDepartment(Department_id:number) {
-    let url = `${URL_SERVICE}/Denuncias/ListDenouncesbyDepartment/${Department_id}`;
+  ListDenuncesbyDepartment(Department_id:number,state:string,from:string,to:string) {
+
+    if(from == ''){
+      from = '_ALL_';
+    }
+
+    if(to == ''){
+      to = '_ALL_';
+    }
+
+    let url = `${URL_SERVICE}/Denuncias/ListDenouncesbyDepartment/${Department_id}/${state}/${from}/${to}`;
+
     return this.http.get( url)
     .pipe(
         map((resp: ApiResponse) => resp.result)
       );
   }
 
-  updatedenouncexadmin(Denuncia:Denounce) {
+  updatedenouncexadmin(Denounce:Denounce,Action:String) {
 
-    let url = `${URL_SERVICE}/Denounce/UpdateDenouncebyAdmin/${Denuncia}`;
+    let url = `${URL_SERVICE}/Denounce/UpdateDenouncebyAdmin/${Action}`;
 
-    return this.http.post( url,Denuncia)
+    return this.http.post( url,Denounce)
       .pipe(
         map((resp: ApiResponse) => Swal.fire( 'Denuncia',  resp.message,  'success' ) )
       );

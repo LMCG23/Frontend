@@ -116,17 +116,27 @@ ListaDepartamentos() {
   }
 
 
-  AllComplains() {
-    let url = `${URL_SERVICE}/Complain/AllComplains`;
+  AllComplains(from:string,to:string,state:string) {
+
+    if(from == ''){
+      from = '_ALL_';
+    }
+
+    if(to == ''){
+      to = '_ALL_';
+    }
+    let url = `${URL_SERVICE}/Complain/AllComplains/${state}/${from}/${to}`;
 
     return this.http.get( url)
     .pipe(
         map((resp: ApiResponse) => resp.result)
       );
   }
+
+
   UpdateComplainbyAdmin( queja:Complain) {
 
-    let url = `${URL_SERVICE}/complain/UpdateComplainbyAdmin/${queja}`;
+    let url = `${URL_SERVICE}/complain/UpdateComplainbyAdmin/`;
 
     return this.http.post( url,queja)
       .pipe(
