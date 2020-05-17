@@ -139,10 +139,10 @@
                                                 </td>
 
                                                 <td class="text-center w-150">
-                                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Detalles de Funcionario" (click)="complaindatail(item)">
+                                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Detalles de Funcionario" (click)="showUser(item)">
                                                         <i class="material-icons">info</i>
                                                     </button>
-                                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Editar Funcionario" (click)="EditComplain(item)">
+                                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Editar Funcionario" (click)="editUser(item)">
                                                         <i class="material-icons">update</i>
                                                     </button>
                                                     <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Funcionario" (click)="deleteUser(item)">
@@ -207,7 +207,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Número de Cédula</label>
-                        <input [(ngModel)]="Persona.strId" type="text" id="form3" class="form-control validate" placeholder="Inserte su número de cédula">
+                        <input [(ngModel)]="Persona.persona_Id" type="text" id="form3" class="form-control validate" placeholder="Inserte su número de cédula">
                     </div>
                 </div>
             </div>
@@ -255,7 +255,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Departamento</label>
-                        <select [(ngModel)]="Usuario.departamento.department_id" class="form-control" required>
+                        <select [(ngModel)]="Usuario.departamento.department_Id" class="form-control" required>
                             <option value="-1">-- Seleccione un departamento --</option>
                             <option *ngFor="let item of departmens" [value]="item.department_Id">
                                 {{ item.name }}
