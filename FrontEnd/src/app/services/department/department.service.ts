@@ -28,7 +28,27 @@ export class DepartmentService {
 
   }
 
-  DeleteDenounce(department_id:number){
+
+  ListaDepartamentos(filter:string) {
+
+    if(filter == ''){
+      filter = '_ALL_';
+    }
+
+
+    let url = `${URL_SERVICE}/department/list/${filter}`;
+
+ 
+    
+    return this.http.get( url)
+    .pipe(
+        map((resp: ApiResponse) => resp.result)
+      );
+  }
+
+
+
+  Delete(department_id:number){
 
     let url = `${URL_SERVICE}/department/delete/${department_id}`;
     console.log(url);

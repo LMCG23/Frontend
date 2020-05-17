@@ -33,6 +33,7 @@ import { EditprofileComponent } from './pages/editprofile/editprofile.component'
 
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -50,6 +51,7 @@ import { EditprofileComponent } from './pages/editprofile/editprofile.component'
     LoginComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+   
  
    
   

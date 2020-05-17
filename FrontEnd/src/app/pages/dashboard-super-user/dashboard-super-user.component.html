@@ -1,0 +1,45 @@
+<div class="header   pt-5 pt-md-7"   style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;" >
+  <div class="container-fluid">
+    <div class="header-body">
+   
+    </div>
+  </div>
+</div>
+
+<br>
+<br><br><br><br>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <div class="card bg-gradient-default shadow">
+        <div class="card-header bg-transparent">
+          <div class="row align-items-center">
+            <div class="col">
+              <h4 class="text-uppercase text-light ls-1 mb-1">Noticias</h4>
+              <h2 class="text-white mb-0">San pablo de Heredia</h2>
+            </div>
+           
+          </div>
+        </div>
+        <div class="card-body" style="height: 450px;">
+          
+          <ngb-carousel *ngIf="Noticias"  style="margin-top: -5px;">
+            <ng-template ngbSlide *ngFor="let item of Noticias">
+              <div class="picsum-img-wrapper">
+                <img [src]="item.fileToUpload" alt="Random slide" style="  border: #2a475e  27px solid; height: 500px;" >
+              </div>
+              <div class="carousel-caption">
+                <h3>{{item.titulo}}</h3>
+                <p>{{item.descripcion}}</p>
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+
+</div>

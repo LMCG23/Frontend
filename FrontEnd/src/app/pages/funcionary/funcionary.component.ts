@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CryptoService, UsuarioService, ComplainService } from 'src/app/services/service.index';
-import { Usuario, Persona, Departamento, Role,Department } from 'src/app/models/model.index';
+import { Usuario, Persona, Departamento, Role, Department } from 'src/app/models/model.index';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-funcionary',
@@ -10,7 +11,7 @@ import { Usuario, Persona, Departamento, Role,Department } from 'src/app/models/
 export class FuncionaryComponent implements OnInit {
 
   ingresando: boolean = false;
-  Usuario: Usuario;
+  Usuario: any;
   Persona: Persona;
   errormsj: string;
   passwordRegister: string = '';
@@ -18,12 +19,13 @@ export class FuncionaryComponent implements OnInit {
   departmens: Departamento[] = [];
   roles: Role[] = [];
   // users: Usuario[] = [];
-  users: any;
+  users: any []= [];
 
   // Pagination
   page: number = 1;
   pageSize: number = 5;
-
+// search variable
+  filter:string = '';
 
   constructor(
     private _complainService: ComplainService,
@@ -48,21 +50,27 @@ export class FuncionaryComponent implements OnInit {
         this.roles = roles;
         console.log(this.roles);
       });
-      this.ListaDeUsuarios();
+    this.ListaDeUsuarios();
 
 
   }
 
-  ListaDeUsuarios(){
-    this._usuarioService.AllUsers()
-    .subscribe(result => {
-      var users = result.users;
-      this.users = users;
-      console.log(this.users);
-    });
+  ListaDeUsuarios() {
+    this._usuarioService.AllUsers(this.filter)
+      .subscribe(result => {
+        var users = result.users;
+        this.users = users;
+        console.log(this.users);
+      });
 
   }
 
+
+  clearfilter(){
+    this.filter = '';
+    this.ListaDeUsuarios();
+
+  }
   inicio() {
     this.Persona = new Persona(-1, '', '', '', '', '');
     let departamento = new Department(-1, '', 0);
@@ -99,15 +107,44 @@ export class FuncionaryComponent implements OnInit {
   }
 
 
-  deleteUser(item:any){
-    this._usuarioService.DeleteUser(item.usuario_Id)
-    .subscribe(result => {
-      this.ListaDeUsuarios();
-      this.inicio();
-    } );
-  
+  deleteUser(item: any) {
+
+    Swal.fire({
+      title: 'Esta segur@?',
+      text: "De que desea eliminar el funcionario " + item.persona.nombre,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar!',
+      cancelButtonText: ' Cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        this._usuarioService.DeleteUser(item.usuario_Id)
+          .subscribe(result => {
+            this.ListaDeUsuarios();
+            this.inicio();
+          });
+      }
+    })
+
+
+
+
+
+
   }
 
+  editFuncionary(item:any){
+    this.Usuario = Object.assign({},item)
+    this.Persona =  Object.assign({},this.Usuario.persona);
+    this.Usuario.departamento.department_id = this.Usuario.departamento.department_Id;
+    this.passwordRegister = Object.assign({},this.Usuario.password)  ;
+    this.Persona.strId = this.Usuario.persona.persona_Id;
+    
+    
+    
+  }
 
 
 
@@ -115,15 +152,15 @@ export class FuncionaryComponent implements OnInit {
     this.validar();
     if (this.errormsj == '') {
 
-     this.Persona.persona_Id = parseInt(this.Persona.strId);
+      this.Persona.persona_Id = parseInt(this.Persona.strId);
       this.Usuario.password = this._cryptoService.encryptPassword(this.passwordRegister);
       this.Usuario.persona = this.Persona;
-      console.log( this.Usuario);
-      this._usuarioService.signin(this.Usuario)
-      .subscribe(() => {
-        this.ListaDeUsuarios();
-        this.inicio();
-      })
+      console.log(this.Usuario);
+      this._usuarioService.funcionaryRegister(this.Usuario)
+        .subscribe(() => {
+          this.ListaDeUsuarios();
+          this.inicio();
+        })
     }
 
   }

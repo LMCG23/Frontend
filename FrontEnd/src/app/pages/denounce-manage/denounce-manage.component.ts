@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Usuario, Denounce,Department } from 'src/app/models/model.index';
-import { UsuarioService, DenounceService,ComplainService } from 'src/app/services/service.index';
+import { Usuario, Denounce, Department } from 'src/app/models/model.index';
+import { UsuarioService, DenounceService, ComplainService } from 'src/app/services/service.index';
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -14,11 +14,26 @@ export class DenounceManageComponent implements AfterViewInit {
   denuncias: Denounce[] = [];
   departmens: Department[] = [];
   usuario: any;
+
+  newdenounces: number = 0;
+  attendeddenounces: number = 0;
+  denouncesinprocess: number = 0;
+
   Description: string = '';
   estado = 'Revision';
 
+  showDenounce: boolean = false;
+  ProcessDenounce: boolean = false;
+  replaydenounce: boolean = false;
+  // filtros
+  from: string
+  to: string
+  state: string;
+
+
+  // Pagination
   page: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
   //MAPA DE GOOGLE
   title = 'angular-gmap';
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
@@ -52,11 +67,20 @@ export class DenounceManageComponent implements AfterViewInit {
   start() {
     this.denuncia = new Denounce(0, '', '', 0, 0, '', -1, '', '');
     this.denuncia.Photo = 'http://placehold.it/180';
+    this.showDenounce = false;
+    this.ProcessDenounce = false;
+    this.replaydenounce = false;
     this._ComplainService.ListaDepartamentos()
-    .subscribe(result => {
-      var departmens = result.departamentos;
-      this.departmens = departmens;
-    });
+      .subscribe(result => {
+        var departmens = result.departamentos;
+        this.departmens = departmens;
+      });
+
+    //initfilters
+    this.from = ''
+    this.to = ''
+    this.state = '-1'
+
 
   }
 
@@ -67,25 +91,57 @@ export class DenounceManageComponent implements AfterViewInit {
 
 
 
+
+
   CargaDenounces() {
-    this._DenounceService.ListDenuncesbyDepartment(this.usuario.departamento.department_Id)
+    this._DenounceService.ListDenuncesbyDepartment(this.usuario.departamento.department_Id, this.state, this.from, this.to)
       .subscribe(result => {
-        this.denuncias = result;
-     
+        this.denuncias = result.Denounces;
+        this.newdenounces = result.newdenounces;
+        this.attendeddenounces = result.attendeddenounces; 
+        
+        this.denouncesinprocess = result.denouncesinprocess;
+
       });
   }
 
   EditDenounce(item: any) {
-   
-    // this.denuncia = Object.assign({}, item);
-    this.denuncia =  item;
+    this.showDenounce = true;
+    this.replaydenounce = false;
+    this.ProcessDenounce = false;
+    this.denuncia = item;
     this.Cambio();
     this.mapInitializer();
+
+
+
+  }
+
+  process(item: any) {
+    this.showDenounce = false;
+    this.replaydenounce = false;
+    this.ProcessDenounce = true;
+    this.denuncia = item;
+    this.Cambio();
+    this.mapInitializer();
+  }
+
+
+  replay(item: any) {
+    this.ProcessDenounce = false;
+    this.showDenounce = false;
+    this.replaydenounce = true;
+    this.denuncia = item;
+    this.Cambio();
+    this.mapInitializer();
+
 
   }
 
 
-  save() {
+
+
+  Save(Action: string) {
     if (this.denuncia.Denounces_id == 0) {
       Swal.fire({
         icon: 'error',
@@ -93,19 +149,19 @@ export class DenounceManageComponent implements AfterViewInit {
         text: "No ha saleccionado Ninguna Denuncia para editar",
       });
     } else {
-     if(this.denuncia.Department_Id=="-1"){
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: "Debe seleccionar un departamento",
-      });
-     }else{
-      this._DenounceService.updatedenouncexadmin(this.denuncia)
-      .subscribe(result => {
-        this.start();
-        this.CargaDenounces();
-      });
-     }
+      if (Action == 'R' && this.denuncia.Department_Id == "-1") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Debe seleccionar un departamento",
+        });
+      } else {
+        this._DenounceService.updatedenouncexadmin(this.denuncia, Action)
+          .subscribe(result => {
+            this.start();
+            this.CargaDenounces();
+          });
+      }
     }
   }
 

@@ -1,26 +1,23 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header  pb-8 pt-5 pt-md-8" style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
-            <div class="row">
+            <div class="row d-flex justify-content-center">
                 <div class="col-xl-3 col-lg-6">
                     <div class="card card-stats mb-4 mb-xl-0">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                                    <span class="h2 font-weight-bold mb-0">350,897</span>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Denuncias Pendientes</h5>
+                                    <span class="h2 font-weight-bold mb-0">{{newdenounces}}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                        <i class="fas fa-chart-bar"></i>
+                                        <i class="fas fa-external-link-alt"></i>
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                                <span class="text-nowrap">Since last month</span>
-                            </p>
+
                         </div>
                     </div>
                 </div>
@@ -29,8 +26,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                                    <span class="h2 font-weight-bold mb-0">2,356</span>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Denuncias en proceso</h5>
+                                    <span class="h2 font-weight-bold mb-0">{{denouncesinprocess}}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -38,10 +35,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                                <span class="text-nowrap">Since last week</span>
-                            </p>
+
                         </div>
                     </div>
                 </div>
@@ -50,40 +44,16 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                                    <span class="h2 font-weight-bold mb-0">924</span>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Denuncias procesadas</h5>
+                                    <span class="h2 font-weight-bold mb-0">{{attendeddenounces}}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                                        <i class="fas fa-users"></i>
+                                        <i class="fas fa-thumbs-up"></i>
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                                <span class="text-nowrap">Since yesterday</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6">
-                    <div class="card card-stats mb-4 mb-xl-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                                    <span class="h2 font-weight-bold mb-0">49,65%</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                                        <i class="fas fa-percent"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                                <span class="text-nowrap">Since last month</span>
-                            </p>
+
                         </div>
                     </div>
                 </div>
@@ -92,8 +62,58 @@
     </div>
 </div>
 
+<br>
+<!-- filters -->
+<div class="row animated fadeIn" id="titulo">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="form-group col-md-4">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Desde</h5>
+                        <div class="col-md-12">
+                            <input name="desde" [(ngModel)]="from" type="date" class="form-control ">
+
+                        </div>
+                    </div>
 
 
+                    <div class="form-group col-md-4">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Hasta</h5>
+                        <div class="col-md-12">
+                            <input name="desde" [(ngModel)]="to" (change)="CargaDenounces()" type="date" class="form-control ">
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group col-md-4">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Estados</h5>
+                        <select [(ngModel)]="state" (change)="CargaDenounces()" class="form-control" required>
+                            <option value="-1">-- TODOS --</option>
+                            <option value="Pendiente"> Pendiente </option>
+                            <option value="En proceso"> En proceso </option>
+                            <option value="Procesada">Procesada </option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<br>
 
 <div class="row animated fadeIn">
     <div class="col-12">
@@ -111,24 +131,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of denuncias">
+                            <tr
+                                *ngFor="let item of denuncias | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                 <td class="text-center">
                                     {{ item.Denounces_id }}
                                 </td>
 
                                 <td class="text-center">
                                     {{ item.state }}
-                                    </td>
-                                    <td class="text-center">
-                                    
-                                        {{item.fecha | date:'yyyy-MM-dd' }}
-                                    </td>
+                                </td>
+                                <td class="text-center">
+
+                                    {{item.fecha | date:'yyyy-MM-dd' }}
+                                </td>
                                 <td class="text-center w-150">
-      
-                                    <button type="button" class="btn btn-cyan" (click)="EditDenounce(item)">
-                                        <i class="material-icons">update</i>
+
+                                    <button data-toggle="tooltip" data-placement="top" title="Ver información de la denuncia"  type="button" class="btn btn-cyan" style="background: skyblue;"  (click)="EditDenounce(item)">
+                                        <i class="fas fa-info-circle"></i>
                                     </button>
-                                
+                                    <button data-toggle="tooltip" data-placement="top" title="Redireccionar denuncia"   type="button" class="btn btn-default" (click)="process(item)">
+                                        <i class="fas fa-spinner"></i>
+                                    </button>
+                                    <button  data-toggle="tooltip" data-placement="top" title="Responder denuncia"  type="button" class="btn btn-success" (click)="replay(item)">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
                                 </td>
 
                             </tr>
@@ -137,8 +163,8 @@
                             <tr>
                                 <td colspan="6">
                                     <ngb-pagination class="d-flex justify-content-center" [(page)]="page"
-                                        [boundaryLinks]="true" [rotate]="true" [ellipses]="false" [maxSize]="5"
-                                        [pageSize]="pageSize"></ngb-pagination>
+                                        [collectionSize]="denuncias.length" [boundaryLinks]="true" [rotate]="true"
+                                        [ellipses]="false" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
                                 </td>
                             </tr>
                         </tfoot>
@@ -150,80 +176,78 @@
     </div>
 </div>
 
+<br>
 
-<div class="row animated fadeIn" id="titulo">
+<div class="row animated fadeIn" id="titulo" *ngIf="showDenounce==true" >
     <div class="col-12">
         <div class="card">
             <div class="card-body">
 
+                 <h1>Denuncia # {{denuncia.Denounces_id}}</h1>
+
+                 <br><br>
+                 <h2>Información del denunciante </h2>
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div>
-                            <p># {{denuncia.Denounces_id}}</p>
-                           
-                        </div>
+                    
 
-
-                    </div>
-                </div>
-
-                <div class="row">
-
+                    
                     <div class="col-lg-3">
 
                         <div class="form-group">
                             <label>Nombre</label><br>
-                                <p>{{denuncia.PersonName}}</p>
+                            <p>{{denuncia.PersonName}} {{denuncia.PersonLastName1}} {{denuncia.PersonLastName2}}</p>
                         </div>
 
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                                <label>Cedula</label><br>
-                                <p>{{denuncia.person_Id}}</p>
+                            <label>Cédula</label><br>
+                            <p>{{denuncia.person_Id}} </p>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
 
-                                <label>Telefono</label><br>
-                                <p>{{denuncia.phoneNumber}}</p>
+                            <label>Teléfono</label><br>
+                            <p>{{denuncia.phoneNumber}}</p>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <label>Correo</label>
-                                <p>{{denuncia.Email}}</p>
+                            <label>Correo electronico</label>
+                            <p>{{denuncia.Email}}</p>
                         </div>
                     </div>
 
                 </div>
 
-            <div class="row">
-                
-                    <div class="col-lg-6">
-                        <div class=" form-group ">
-                            <label>Ubicacion</label><br>
-                            <div #mapContainer id="map"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Escoger foto</label><br>
-                            <img id='Img1' [src]="denuncia.Photo">
-                        </div>
-                    </div>
-                
-            </div>
 
                 <div class="row">
 
                     <div class="col-lg-12">
 
-                        <div class="form-group">
+                        <h2>Fecha de la denuncia</h2>
+                        <div class="form-group ">
 
-                                <label>Descripcion</label>
-                                <p style="  padding: 3px 10px;
+                            <p >{{denuncia.fecha | date:'yyyy-MM-dd' }}</p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <h2>Datos descriptivos</h2>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+
+                        
+                        <div class="form-group ">
+                            <h3>Descripcion de la denuncia</h3>
+                            
+                            <p  style="  padding: 3px 10px;
                                 border: PowderBlue 5px solid;
                                 border-radius: 20px;">{{denuncia.Description}}</p>
                         </div>
@@ -234,24 +258,63 @@
                 </div>
 
 
+                <br>
+               
                 <div class="row">
 
-
-                    <div class="col-lg-5">
-                        <div class="form-group">
-                            <label>Estado </label>
-                            <select [(ngModel)]="denuncia.state" class="form-control"required>
-                                <option value="Pendiente">Pendiente</option>
-                                <option value="En Proceso">En Proceso</option>
-                                <option value="Procesada">Procesada</option>
-                            
-                            </select>
+                    <div class="col-lg-6">
+                        <div class=" form-group ">
+                            <h3>Ubicación</h3>
+                            <div #mapContainer id="map"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
+                            <h3>Foto descriptiva</h3>
+                            <img id='Img1' [src]="denuncia.Photo">
+                        </div>
+                    </div>
+
+                </div>
+
+          
+
+
+                
+
+        
+
+
+
+
+
+                <div class="float-right">
+                    <button (click)="start()" type="button" class="btn btn-secondary" [disabled]="cancelando">
+                        <i class="material-icons">clear</i> cerrar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" id="titulo" *ngIf="ProcessDenounce==true" >
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                 <h1>Denuncia # {{denuncia.Denounces_id}}</h1>
+                      
+    
+
+                <div class="row">
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
                             <label>Redireccionar Denuncia a Otro Departamento</label>
-                            <select [(ngModel)]="denuncia.Department_Id"  class="form-control" required>
+                            <select [(ngModel)]="denuncia.Department_Id" class="form-control" required>
                                 <option value="-1">-- Seleccione un departamento --</option>
                                 <option *ngFor="let item of departmens" [value]="item.department_Id">
                                     {{ item.name }}
@@ -262,12 +325,57 @@
 
                 </div>
 
+             
+
+
+
+
+
+
+                <div class="float-right">
+                    <button type="button" (click)="Save('R')" class="btn btn-success" [disabled]="guardando">
+                        <i class="material-icons">save</i> Guardar
+                    </button>
+
+                    <button (click)="start()" type="button" class="btn btn-secondary" [disabled]="cancelando">
+                        <i class="material-icons">clear</i> cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" id="titulo" *ngIf="replaydenounce==true" >
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                 <h1>Denuncia # {{denuncia.Denounces_id}}</h1>
+                      
+
+
+                
+                 <div class="col-lg-5">
+                    <div class="form-group">
+                        <label>Estado </label>
+                        <select [(ngModel)]="denuncia.state" class="form-control" required>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="En Proceso">En Proceso</option>
+                            <option value="Procesada">Procesada</option>
+
+                        </select>
+                    </div>
+                </div>
+
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group ">
                             <label>Respuesta</label>
                             <input type="textarea" [(ngModel)]="denuncia.Answer" id="form3" required
-                                class="form-control validate" style="min-height: 100px;" placeholder="Inserte La Respuesta a la Denuncia">
+                                class="form-control validate" style="min-height: 100px;"
+                                placeholder="Inserte La Respuesta a la Denuncia">
                         </div>
 
 
@@ -280,125 +388,15 @@
 
 
                 <div class="float-right">
-                    <button type="button" (click)="save()" class="btn btn-success" [disabled]="guardando">
+                    <button type="button" (click)="Save('A')" class="btn btn-success" [disabled]="guardando">
                         <i class="material-icons">save</i> Guardar
                     </button>
 
                     <button (click)="start()" type="button" class="btn btn-secondary" [disabled]="cancelando">
-                        <i class="material-icons">clear</i> Cancelar
+                        <i class="material-icons">clear</i> cerrar
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<!-- 
-<div class="modal fade " id="addphoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
-    aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-scrollable " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Seleccione una foto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeU()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <input type='file' (change)="readUrl($event)">
-                <img id='Img1' [src]="denuncia.Photo">
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="GuardarFotos()">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<ng-template #mymodal let-modal>
-
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalScrollableTitle">UBICACION</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeI()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class=" ">
-
-            <div class="table-responsive">
-                <div style=" height: 20rem !important; overflow: scroll; align-content: center;">
-
-
-                    <div #mapContainer id="map"></div>
-
-
-                </div>
-
-
-            </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="GuardarUbicacion()">Aceptar</button>
-        </div>
-    </div>
-
-</ng-template>
-
-
-<div class="modal fade " id="denouncesdatail" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
-    aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Detalle de la denuncia</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-
-                <div class="row">
-                    <div class="form-group col-md-12 text-center">
-                        <label>Descripción</label>
-                        <label class="form-control validate" required>
-                            {{Description}}
-                        </label>
-                    </div>
-                </div>
-
-
-
-                <div class="row d-flex justify-content-center">
-                    <div class="form-group d-flex justify-content-center">
-
-                        <img id='Img1' [src]="denuncia.Photo">
-                    </div>
-
-                </div>
-
-
-
-
-
-            </div>
-
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div> 
--->

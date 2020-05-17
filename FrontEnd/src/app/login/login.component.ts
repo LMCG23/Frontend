@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     var pass = this._cryptoService.encryptPassword(form.value.password);
 
     this._usuarioService.login(user, pass)
-      .subscribe(() => this.router.navigate(['/dashboard']))
+      .subscribe()
       .add(() => this.ingresando = false);
 
   }
