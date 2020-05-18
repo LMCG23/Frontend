@@ -23,8 +23,7 @@
 
                     <div class="col-md-3">
                         <h5 class="card-title text-uppercase text-muted mb-0">Hasta</h5>
-                        <input name="hasta" [(ngModel)]="hasta" (change)="CargaDenounces()" type="date"
-                            class="form-control ">
+                        <input name="hasta" [(ngModel)]="hasta" (change)="CargaDenounces()" type="date" class="form-control ">
                     </div>
 
 
@@ -41,8 +40,7 @@
 
                     <div class="col-md-3">
                         <h5 class="card-title text-uppercase text-muted mb-0">Departamento</h5>
-                        <select [(ngModel)]="departmentid_Filter" (change)="CargaDenounces()" class="form-control"
-                            required>
+                        <select [(ngModel)]="departmentid_Filter" (change)="CargaDenounces()" class="form-control" required>
                             <option value="-1">-- TODOS --</option>
                             <option *ngFor="let item of departmens" [value]="item.name">
                                 {{ item.name }}
@@ -67,8 +65,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <thead
-                            style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                        <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
                             <tr>
                                 <th class="text-center">#</th>
                                 <th class="text-center">Departamento</th>
@@ -77,8 +74,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let item of denuncias | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                            <tr *ngFor="let item of denuncias | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                 <td class="text-center">
                                     {{ item.Denounces_id }}
                                 </td>
@@ -90,13 +86,13 @@
                                     {{ item.state }}
                                 </td>
                                 <td class="text-center w-150">
-                                    <button type="button" class="btn btn-cyan" (click)="open2(denouncesdatail,item)">
+                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Detalle de denuncia" (click)="open2(denouncesdatail,item)">
                                         <i class="material-icons">info</i>
                                     </button>
-                                    <button type="button" class="btn btn-cyan" (click)="EditDenounce(item)">
+                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Editar Denuncia" (click)="EditDenounce(item)">
                                         <i class="material-icons">update</i>
                                     </button>
-                                    <button type="button" class="btn btn-danger" (click)="deleteDenounce(item)">
+                                    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Borrar Denuncia" (click)="deleteDenounce(item)">
                                         <i class="material-icons">delete</i>
                                     </button>
                                 </td>
@@ -106,9 +102,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="6">
-                                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page"
-                                        [collectionSize]="denuncias.length" [boundaryLinks]="true" [rotate]="true"
-                                        [ellipses]="false" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [collectionSize]="denuncias.length" [boundaryLinks]="true" [rotate]="true" [ellipses]="false" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
                                 </td>
                             </tr>
                         </tfoot>
@@ -129,8 +123,7 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label>Departamento</label>
-                        <select [(ngModel)]="denuncia.Department_Id" (change)="capturar()" class="form-control"
-                            required>
+                        <select [(ngModel)]="denuncia.Department_Id" (change)="capturar()" class="form-control" required>
                             <option value="-1">-- Seleccione un departamento --</option>
                             <option *ngFor="let item of departmens" [value]="item.department_Id">
                                 {{ item.name }}
@@ -227,8 +220,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalScrollableTitle">UBICACION</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                (click)="modal.dismiss('Cross click')">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -259,43 +251,43 @@
 <ng-template #denouncesdatail let-modal>
 
     <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title white-text w-100 font-weight-bold py-2 text-left">Detalle de la denuncia</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <div class="modal-header text-center">
+            <h4 class="modal-title white-text w-100 font-weight-bold py-2 text-left">Detalle de la denuncia</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <div class="modal-body">
+        </div>
+        <div class="modal-body">
 
 
 
-        <div class="row">
-          <div class="form-group col-md-12 text-center">
-            <h3>Descripción</h3>
-            <h5 >
-                {{denuncia.Description}}
-            </h5>
-          </div>
+            <div class="row">
+                <div class="form-group col-md-12 text-center">
+                    <h3>Descripción</h3>
+                    <h5>
+                        {{denuncia.Description}}
+                    </h5>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-md-12 text-center">
+                    <h3>Respuesta</h3>
+                    <h5>
+                        {{Answer}}
+                    </h5>
+                </div>
+            </div>
+
+
+
         </div>
 
 
-        <div class="row">
-          <div class="form-group col-md-12 text-center">
-            <h3>Respuesta</h3>
-            <h5 >
-              {{Answer}}
-            </h5>
-          </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cerrar</button>
         </div>
-
-
-
-      </div>
-
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cerrar</button>
-      </div>
     </div>
 
 </ng-template>
