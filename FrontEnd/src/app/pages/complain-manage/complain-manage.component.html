@@ -93,7 +93,7 @@
 
                     <div class="form-group col-md-4">
                         <h5 class="card-title text-uppercase text-muted mb-0">Estados</h5>
-                        <select [(ngModel)]="state" (change)="allcomplains()"  class="form-control" required>
+                        <select [(ngModel)]="state" (change)="allcomplains()" class="form-control" required>
                             <option value="-1">-- TODOS --</option>
                             <option value="Pendiente"> Pendiente </option>
                             <option value="En proceso"> En proceso </option>
@@ -117,14 +117,13 @@
 <br>
 
 
-<div class="row animated fadeIn"  >
+<div class="row animated fadeIn">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <thead
-                            style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                        <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
                             <tr>
                                 <th class="text-center">#</th>
                                 <th class="text-center">Estado</th>
@@ -147,10 +146,10 @@
                                 </td>
                                 <td class="text-center w-150">
 
-                                    <button data-toggle="tooltip" data-placement="top" title="Ver información de la queja"  style="background: skyblue;" type="button" class="btn btn-cyan" (click)="EditComplain(item)">
+                                    <button data-toggle="tooltip" data-placement="top" title="Editar la queja" style="background: skyblue;" type="button" class="btn btn-cyan" (click)="EditComplain(item)">
                                         <i class="fas fa-info-circle"></i>
                                     </button>
-                                    <button type="button" data-toggle="tooltip" data-placement="top" title="Dar respuesta a la queja"   class="btn btn-success" (click)="ComplainProcess(item)">
+                                    <button type="button" data-toggle="tooltip" data-placement="top" title="Dar respuesta a la queja" class="btn btn-success" (click)="ComplainProcess(item)">
                                         <i class="fas fa-reply"></i>
                                     </button>
                                 </td>
@@ -195,7 +194,7 @@
 
 
                 <h3> Información del cuidadano </h3>
-              
+
 
                 <div class="row">
 
@@ -231,7 +230,7 @@
 
                 <h3> Información de la queja </h3>
 
-              
+
 
                 <h4> Funcionario de quien se quejan </h4>
 
@@ -273,10 +272,10 @@
 
                         </div>
                     </div>
-                
 
 
-                    
+
+
 
                 </div>
 
@@ -343,7 +342,7 @@
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label>Estado </label>
-                            <select [(ngModel)]="complain.state" class="form-control"required>
+                            <select [(ngModel)]="complain.state" class="form-control" required>
                                 <option value="Pendiente">Pendiente</option>
                                 <option value="En Proceso">En Proceso</option>
                                 <option value="Procesada">Procesada</option>
@@ -354,9 +353,7 @@
                     <div class="col-lg-12">
                         <div class="form-group ">
                             <label>Respuesta</label>
-                            <input type="textarea" [(ngModel)]="complain.Answer" id="form3" required
-                                class="form-control validate" style="min-height: 100px;"
-                                placeholder="Inserte la respuesta a la denuncia">
+                            <input type="textarea" [(ngModel)]="complain.Answer" id="form3" required class="form-control validate" style="min-height: 100px;" placeholder="Inserte la respuesta a la denuncia">
                         </div>
 
 

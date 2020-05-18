@@ -1,37 +1,36 @@
-<div class="header   pt-5 pt-md-7"   style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;" >
+<div class="header   pt-5 pt-md-7" style="background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
     <div class="container-fluid">
-      <div class="header-body">
-     
-      </div>
+        <div class="header-body">
+
+        </div>
     </div>
-  </div>
+</div>
 <br>
 
 <div class="row animated fadeIn">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-  
+
                 <div class="input-group">
-  
-                    <input [(ngModel)]="filter" name="filter" (keyup)="ListaDeUsuarios()" type="text"
-                        class="form-control" placeholder="Buscar por  nombre o cédula del funcionario...">
-  
+
+                    <input [(ngModel)]="filter" name="filter" (keyup)="ListaDeUsuarios()" type="text" class="form-control" placeholder="Buscar por  nombre o cédula del funcionario...">
+
                     <div class="input-group-append">
                         <button (click)="clearfilter()" class="btn btn-outline-danger no-border" type="button">
                             <i class="material-icons">cancel</i>
                         </button>
                     </div>
-  
+
                 </div>
-  
+
             </div>
         </div>
     </div>
-  </div>
+</div>
 
 <br>
-  <div class="row animated fadeIn">
+<div class="row animated fadeIn">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -45,8 +44,7 @@
 
                                 <div class="table-responsive" style="overflow-x: scroll;">
                                     <table class="table table-hover">
-                                        <thead
-                                            style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
+                                        <thead style="color: whitesmoke; background: linear-gradient(#171a21,#1b2838,#2a475e ) !important;">
                                             <tr>
                                                 <th class=" ">Cedula</th>
                                                 <th class=" ">Nombre</th>
@@ -58,14 +56,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+
                                             <tr *ngFor="let item of users | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                                              
+
                                                 <td class="">
                                                     {{ item.persona.persona_Id }}
                                                 </td>
                                                 <td class=" ">
-                                                    {{ item.persona.nombre }} {{ item.persona.apellido1 }} {{ item.persona.apellido2 }} 
+                                                    {{ item.persona.nombre }} {{ item.persona.apellido1 }} {{ item.persona.apellido2 }}
                                                 </td>
                                                 <td class=" ">
                                                     {{ item.persona.correo }}
@@ -76,15 +74,13 @@
                                                 <td class=" ">
                                                     {{ item.departamento.name}}
                                                 </td>
-                                               
-                                                <td class="text-center w-150"  >
-                                                    
-                                                    <button type="button" class="btn btn-cyan"
-                                                        (click)="editFuncionary(item)">
+
+                                                <td class="text-center w-150">
+
+                                                    <button type="button" class="btn btn-cyan" data-toggle="tooltip" data-placement="top" title="Editar Funcionario" (click)="editFuncionary(item)">
                                                         <i class="material-icons">update</i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        (click)="deleteUser(item)">
+                                                    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Funcionario" (click)="deleteUser(item)">
                                                         <i class="material-icons">delete</i>
                                                     </button>
                                                 </td>
@@ -95,10 +91,8 @@
                                         <tfoot>
                                             <tr>
                                                 <td colspan="6">
-                                                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page"
-                                                      [collectionSize]="users.length" [boundaryLinks]="true" [rotate]="true" [ellipses]="false"
-                                                      [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
-                                                  </td>
+                                                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [collectionSize]="users.length" [boundaryLinks]="true" [rotate]="true" [ellipses]="false" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                                                </td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -123,8 +117,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input [(ngModel)]="Persona.nombre" type="text" id="form3"  required class="form-control validate"
-                            placeholder="Inserte su nombre">
+                        <input [(ngModel)]="Persona.nombre" type="text" id="form3" required class="form-control validate" placeholder="Inserte su nombre">
                     </div>
                 </div>
             </div>
@@ -132,8 +125,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Apellido 1 </label>
-                        <input [(ngModel)]="Persona.apellido1" type="text" id="form3" class="form-control validate"
-                            placeholder="Inserte su primer apellido">
+                        <input [(ngModel)]="Persona.apellido1" type="text" id="form3" class="form-control validate" placeholder="Inserte su primer apellido">
                     </div>
                 </div>
             </div>
@@ -144,8 +136,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Apellido 2</label>
-                        <input [(ngModel)]="Persona.apellido2" type="text" id="form3" class="form-control validate"
-                            placeholder="Inserte su segundo apellido">
+                        <input [(ngModel)]="Persona.apellido2" type="text" id="form3" class="form-control validate" placeholder="Inserte su segundo apellido">
                     </div>
                 </div>
             </div>
@@ -153,8 +144,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Número de Cédula</label>
-                        <input [(ngModel)]="Persona.strId" type="text" id="form3" class="form-control validate"
-                            placeholder="Inserte su número de cédula">
+                        <input [(ngModel)]="Persona.strId" type="text" id="form3" class="form-control validate" placeholder="Inserte su número de cédula">
                     </div>
                 </div>
             </div>
@@ -165,8 +155,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Correo</label>
-                        <input [(ngModel)]="Persona.correo" type="email" id="form3" class="form-control validate"
-                            placeholder="Inserte un correo electrónico">
+                        <input [(ngModel)]="Persona.correo" type="email" id="form3" class="form-control validate" placeholder="Inserte un correo electrónico">
                     </div>
                 </div>
             </div>
@@ -174,8 +163,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Télefono</label>
-                        <input [(ngModel)]="Persona.telefono" type="number" id="form3" class="form-control validate"
-                            placeholder="Inserte un número de télefono">
+                        <input [(ngModel)]="Persona.telefono" type="number" id="form3" class="form-control validate" placeholder="Inserte un número de télefono">
                     </div>
                 </div>
             </div>
@@ -185,8 +173,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>Nombre de usuario</label>
-                        <input [(ngModel)]="Usuario.nombre" type="text" id="form3" class="form-control validate"
-                            placeholder="Inserte un nombre de usuario">
+                        <input [(ngModel)]="Usuario.nombre" type="text" id="form3" class="form-control validate" placeholder="Inserte un nombre de usuario">
                     </div>
                 </div>
             </div>
@@ -194,8 +181,7 @@
                 <div class="col-lg-9">
                     <div class="form-group">
                         <label>contraseña</label>
-                        <input [(ngModel)]="passwordRegister" type="password" id="form3" class="form-control validate"
-                            placeholder="Inserte una contraseña">
+                        <input [(ngModel)]="passwordRegister" type="password" id="form3" class="form-control validate" placeholder="Inserte una contraseña">
                     </div>
                 </div>
             </div>
@@ -238,9 +224,6 @@
 
 
 <div class="modal-footer justify-content-center modal-footer">
-    <a type="button" (click)="inicio()" class="btn  waves-effect"
-        style="background: gray; color:whitesmoke ;">Cancelar<i class="fas fa-paper-plane-o ml-1"></i></a>
-    <a type="button" (click)="registrarse()" class="btn  waves-effect"
-        style="background: #5c7e10; color:whitesmoke ;">Enviar<i class="fas fa-paper-plane-o ml-1"></i></a>
+    <a type="button" (click)="inicio()" class="btn  waves-effect" style="background: gray; color:whitesmoke ;">Cancelar<i class="fas fa-paper-plane-o ml-1"></i></a>
+    <a type="button" (click)="registrarse()" class="btn  waves-effect" style="background: #5c7e10; color:whitesmoke ;">Enviar<i class="fas fa-paper-plane-o ml-1"></i></a>
 </div>
-
