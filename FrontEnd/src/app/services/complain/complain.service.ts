@@ -79,7 +79,7 @@ ListaDepartamentos() {
 
     return this.http.post( url,queja)
       .pipe(
-        map((resp: ApiResponse) => Swal.fire( 'insercion de queja',  resp.message,  'success' ) )
+        map((resp: ApiResponse) => Swal.fire( 'Queja',  resp.message,  'success' ) )
       );
 
   }
@@ -103,6 +103,7 @@ ListaDepartamentos() {
       );
 
   }
+  
   DeleteComplain(Complain_id:number){
 
     let url = `${URL_SERVICE}/complain/delete/${Complain_id}`;
@@ -134,16 +135,18 @@ ListaDepartamentos() {
   }
 
 
-  UpdateComplainbyAdmin( queja:Complain) {
+
+  UpdateComplainbyAdmin(queja:Complain) {
 
     let url = `${URL_SERVICE}/complain/UpdateComplainbyAdmin/`;
 
     return this.http.post( url,queja)
       .pipe(
-        map((resp: ApiResponse) => Swal.fire( 'Se ha actualizado la queja',  resp.message,  'success' ) )
+        map((resp: ApiResponse) => Swal.fire( 'Queja',  resp.message,  'success' ) )
       );
 
   }
+
 
 
 

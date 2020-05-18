@@ -49,7 +49,7 @@ export class SidebarComponent implements OnInit {
 
   public menuItems: any[];
   public isCollapsed = true;
-  user:Usuario
+  user:any;
   smartmsph:string = '';
   constructor(private router: Router,private usuarioService:UsuarioService ) { }
 
@@ -84,15 +84,26 @@ export class SidebarComponent implements OnInit {
     }  
     
     if(this.user.rol == 2){
-     
+       
+        
+        if(this.user.departamento.department_Id == 1) {
+          this.ROUTE = [
+            { path: '/Admin/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
+           // { path: '/DenounceManage', title: 'Gestor De Denuncias',  icon:'ni-bullet-list-67 text-red', class: '' },
+            { path: '/ComplainManage', title: 'Gestor De Quejas',  icon:'ni-bullet-list-67 text-red', class: '' },     
+        ];
+        this.menuItems = this.ROUTE;
+        } else {
+          this.ROUTE = [
+            { path: '/Admin/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
+            { path: '/DenounceManage', title: 'Gestor De Denuncias',  icon:'ni-bullet-list-67 text-red', class: '' },
+            //{ path: '/ComplainManage', title: 'Gestor De Quejas',  icon:'ni-bullet-list-67 text-red', class: '' }, 
+        ];
+        this.menuItems = this.ROUTE;
+        }
 
-      this.ROUTE = [
-        { path: '/Admin/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
-        { path: '/DenounceManage', title: 'Gestor De Denuncias',  icon:'ni-bullet-list-67 text-red', class: '' },
-        { path: '/ComplainManage', title: 'Gestor De Quejas',  icon:'ni-bullet-list-67 text-red', class: '' },
+ 
     
-    ];
-    this.menuItems = this.ROUTE;
     }  
     if(this.user.rol == 1){
       this.smartmsph =  '/superUser/dashboard'

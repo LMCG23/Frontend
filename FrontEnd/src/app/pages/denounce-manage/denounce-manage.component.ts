@@ -110,9 +110,10 @@ export class DenounceManageComponent implements AfterViewInit {
     this.replaydenounce = false;
     this.ProcessDenounce = false;
     this.denuncia = item;
-    this.Cambio();
+    setTimeout(() => {
+      this.Cambio();
     this.mapInitializer();
-
+    }, 100);
 
 
   }
@@ -142,28 +143,35 @@ export class DenounceManageComponent implements AfterViewInit {
 
 
   Save(Action: string) {
-    if (this.denuncia.Denounces_id == 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: "No ha saleccionado Ninguna Denuncia para editar",
-      });
-    } else {
       if (Action == 'R' && this.denuncia.Department_Id == "-1") {
         Swal.fire({
           icon: 'error',
-          title: 'Oops...',
+          title: 'error',
           text: "Debe seleccionar un departamento",
         });
-      } else {
+        return
+      } 
+
+      console.log(this.denuncia);
+      
+
+      if (this.denuncia.state == 'Procesada' && this.denuncia.Answer == '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'error',
+          text: "Debe dar respuesta a la denuncia",
+        });
+        return
+      } 
+      
+
         this._DenounceService.updatedenouncexadmin(this.denuncia, Action)
           .subscribe(result => {
             this.start();
             this.CargaDenounces();
           });
-      }
     }
-  }
+
 
 
 

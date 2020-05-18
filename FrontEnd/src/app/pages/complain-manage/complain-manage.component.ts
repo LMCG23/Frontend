@@ -64,6 +64,7 @@ allcomplains(){
 
   EditComplain(item: any) {
     this.ComplainInformation = true;
+    this.ComplainEdit = false;
     this.complain =  item;
     this._UsuarioService.PersonbyId(this.complain.person_Id)
     .subscribe(result=>{
@@ -75,6 +76,7 @@ allcomplains(){
 
 
   ComplainProcess(item: any) {
+    this.ComplainInformation = false;
     this.ComplainEdit = true;
     this.complain =  item;
     this._UsuarioService.PersonbyId(this.complain.person_Id)
@@ -86,20 +88,26 @@ allcomplains(){
   }
 
   save(){
-    if (this.complain.Complain_Id == 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: "No ha saleccionado Ninguna Queja para editar",
-      });
-    }else{
+
+     if(this.complain.state == 'Procesada' && this.complain.Answer == '') {
+      Swal.fire('Error','Debe dar una respuesta a la queja','error'); 
+     return ;
+     }
+     else {
+
       this._ComplainService.UpdateComplainbyAdmin(this.complain)
       .subscribe(result => {
         this.start();
         this.allcomplains();
   
       });
-     } 
+ 
+     }
+
+
+ 
+      
+    
 
 
 

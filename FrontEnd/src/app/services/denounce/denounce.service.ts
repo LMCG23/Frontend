@@ -39,8 +39,11 @@ console.log(url);
   }
 
 
-  ListDenuncesbyId(User_id:number) {
-    let url = `${URL_SERVICE}/Denuncias/List/${User_id}`;
+  ListDenuncesbyId(User_id:number,desde:string,hasta:string,state:string,deparment:string) {
+      if(desde == '') desde = '_ALL_'
+      if(hasta == '') hasta = '_ALL_'
+
+    let url = `${URL_SERVICE}/Denuncias/List/${User_id}/${desde}/${hasta}/${state}/${deparment} `;
 
     return this.http.get( url)
     .pipe(

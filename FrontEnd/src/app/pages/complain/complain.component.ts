@@ -33,6 +33,8 @@ export class ComplainComponent implements OnInit {
   Complainstate: string = '-1';
   departmentid_Filter: string = '-1';
 
+  Answer:string = 'La queja aún no tiene una respuesta';
+
 
   // Pagination
   page: number = 1;
@@ -56,7 +58,8 @@ export class ComplainComponent implements OnInit {
     this.fechaString = (this.fecha.getDate() + "/" + (this.fecha.getMonth() + 1) + "/" + this.fecha.getFullYear());
     this.queja = new Complain(-1, '', '', -1, -1, '', '', -1, '');
     this.list();
-
+    this.department_Id = '-1'
+    this.depSeleccion =   this.department_Id 
     this._complainService.ListaDepartamentos()
       .subscribe(result => {
 
@@ -90,7 +93,7 @@ export class ComplainComponent implements OnInit {
 
         var funcionarios = result.funcionarios;
         this.funcionarios = funcionarios;
-        console.log(this.funcionarios);
+       
 
       })
     $('#funcionarioSearch').modal('show');
@@ -114,12 +117,14 @@ export class ComplainComponent implements OnInit {
 
 
   EditComplain(item: Complain) {
-    $('html, body').animate({
-      scrollTop: $('#titulo').offset().top
-    }, 1200);
 
+    
     this.queja = Object.assign({}, item);
     this.department_Id = this.queja.department_id.toString();
+    this.Funcio.nombre =  this.queja.employee_name
+    this.Funcio.Person_Id = parseInt(this.queja.employee);
+    this.department_Id = this.queja.department_id.toString();
+    this.depSeleccion =   this.department_Id 
   }
 
 
@@ -220,15 +225,47 @@ export class ComplainComponent implements OnInit {
 
   }
   deleteComplain(item: Complain) {
-    if (item.state == 'Pendiente') {
-      this._complainService.DeleteComplain(item.Complain_Id)
-        .subscribe(result => {
-          this.CargaXUsuario();
-        });
-    } else {
-      Swal.fire('Error de validación', 'La queja ya fue vista por el departamento', 'error');
-    }
 
+    Swal.fire({
+      title: 'Esta segur@?',
+      text: "De que desea eliminar la denuncia # " + item.Complain_Id ,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar!',
+      cancelButtonText: ' Cancelar!',
+    }).then((result) => {
+      if (result.value) {
+     
+        if (item.state == 'Pendiente') {
+          this._complainService.DeleteComplain(item.Complain_Id)
+            .subscribe(result => {
+              this.CargaXUsuario();
+            });
+        } else {
+          Swal.fire('Error de validación', 'La queja ya fue vista por el departamento', 'error');
+        }
+    
+
+
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 
   }
@@ -243,7 +280,7 @@ export class ComplainComponent implements OnInit {
 
   open(content) {
 
-    if (this.department_Id == '-1') {
+    if (this.department_Id == '-1' || this.depSeleccion == '-1' ) {
       Swal.fire('Error', 'Debe seleccionar un departamento', 'error');
       return;
     }
@@ -266,6 +303,33 @@ export class ComplainComponent implements OnInit {
   }
 
   private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+
+
+  open2(content,item:any) {
+
+    
+    
+    this.Description = item.Description
+   
+    this.Answer = item.Answer == '' ? 'La queja aún no tiene una respuesta' : item.Answer
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: "myCustomModalClass" }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason2(reason)}`;
+    });
+  }
+
+  private getDismissReason2(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

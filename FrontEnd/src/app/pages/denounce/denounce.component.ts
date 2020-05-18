@@ -33,6 +33,15 @@ export class DenounceComponent implements AfterViewInit {
   denuncias: Denounce[] = []
   Description: string = '';
 
+  Answer:string = '';
+
+  //filters
+
+desde:string = '';
+hasta:string = ''; 
+Denouncestate:string= '-1';
+departmentid_Filter:string = '-1';
+
   // Pagination
   page: number = 1;
   pageSize: number = 5;
@@ -202,7 +211,7 @@ export class DenounceComponent implements AfterViewInit {
   }
 
   CargaDenounces() {
-    this._DenounceService.ListDenuncesbyId(this.usuario.usuario_Id)
+    this._DenounceService.ListDenuncesbyId(this.usuario.usuario_Id,this.desde,this.hasta,this.Denouncestate,this.departmentid_Filter)
       .subscribe(result => {
         this.denuncias = result;
 
@@ -212,16 +221,38 @@ export class DenounceComponent implements AfterViewInit {
 
 
   deleteDenounce(item: any) {
-    if (item.state == 'Pendiente') {
-      this._DenounceService.DeleteDenounce(item.Denounces_id)
-        .subscribe(result => {
-          this.CargaDenounces();
-          this.Cambio();
-          this.coordenadas();
-        });
-    } else {
-      Swal.fire('Error de validación', 'la denuncia ya ha sido vista por el departamento no se puede eliminar', 'error')
-    }
+
+    Swal.fire({
+      title: 'Esta segur@?',
+      text: "De que desea eliminar la denuncia # " + item.Denounces_id ,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar!',
+      cancelButtonText: ' Cancelar!',
+    }).then((result) => {
+      if (result.value) {
+     
+        if (item.state == 'Pendiente') {
+          this._DenounceService.DeleteDenounce(item.Denounces_id)
+            .subscribe(result => {
+              this.CargaDenounces();
+              this.Cambio();
+              this.coordenadas();
+            });
+        } else {
+          Swal.fire('Error de validación', 'la denuncia ya ha sido vista por el departamento no se puede eliminar', 'error')
+        }
+
+
+
+      }
+    })
+
+
+
+
 
 
 
@@ -230,6 +261,9 @@ export class DenounceComponent implements AfterViewInit {
 
 
   open(content) {
+
+
+
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"  }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -249,6 +283,7 @@ export class DenounceComponent implements AfterViewInit {
 
   open2(content,item) {
     this.denuncia.Description=item.Description;
+    this.Answer = item.Answer;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"  }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
