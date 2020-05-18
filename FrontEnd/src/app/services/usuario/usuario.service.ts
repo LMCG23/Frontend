@@ -189,6 +189,21 @@ export class UsuarioService {
 
   }
 
+  changePasswordlogout(username: string,currentpassword:string) {
+
+    let url = `${URL_SERVICE}/usuario/changepasswordlogout/${username}/${currentpassword}`;
+    console.log(url)
+
+
+    return this.http.post(url,currentpassword)
+      .pipe(
+        map((resp: ApiResponse) => Swal.fire( 'Cambio de contraseña',  resp.message,  'success' ))
+      );
+
+  }
+
+
+
   savePhoto(user: Usuario) {
 
     let url = `${URL_SERVICE}/user/savephoto/`;

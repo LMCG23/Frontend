@@ -19,7 +19,7 @@
 
 
                 <div class="agile-right ">
-                    <a class="letras" href="#">Olvidó la contraseña?</a>
+                    <a class="letras"  (click)="open(forgotmodal)" href="#">Olvidó la contraseña?</a>
                 </div>
             </div>
 
@@ -265,5 +265,75 @@
             style="background: gray; color:whitesmoke ;">Cancelar<i class="fas fa-paper-plane-o ml-1"></i></a>
         <a type="button" (click)="registrarse()" class="btn  waves-effect"
             style="background: #5c7e10; color:whitesmoke ;">Enviar<i class="fas fa-paper-plane-o ml-1"></i></a>
+    </div>
+</ng-template>
+
+
+
+<ng-template #forgotmodal let-modal >
+    <!--Header-->
+    <div class="modal-header text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Olvidó su contraseña</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+
+
+    <!--Body-->
+    <div class="modal-body">
+
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <h2 class="form-control-label" style="color: whitesmoke;">Nombre de usuario </h2>
+                        <input type="text"  [(ngModel)]="Username" name="Username"
+                          class="form-control form-control-alternative" placeholder="Ingrese su nombre de usuario"
+                          >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" style="color: whitesmoke;">Nueva contraseña </label>
+                        <input type="password"  [(ngModel)]="newpassword"  name="newpassword"
+                          class="form-control form-control-alternative" placeholder="Ingrese la nueva contraseña"
+                          >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" style="color: whitesmoke;">Confirmación</label>
+                        <input type="password"  [(ngModel)]="confirmation" name="confirmation"
+                          class="form-control form-control-alternative" placeholder="Confirme su contraseña"
+                          >
+                      </div>
+                    </div>
+                  </div>
+
+             
+            </form>
+        </div>
+   
+
+    
+     
+
+
+    </div>
+    <!--Footer-->
+    <div class="modal-footer justify-content-center modal-footer">
+        <a type="button" (click)="start()" class="btn  waves-effect"
+            style="background: gray; color:whitesmoke ;"  (click)="modal.dismiss('Cross click')">Cancelar<i class="fas fa-paper-plane-o ml-1"></i></a>
+        <a type="button" (click)="changePassword()" class="btn  waves-effect"
+            style="background: #5c7e10; color:whitesmoke ;">Guardar<i class="fas fa-paper-plane-o ml-1"></i></a>
     </div>
 </ng-template>
