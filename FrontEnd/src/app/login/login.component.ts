@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CryptoService, UsuarioService } from '../services/service.index';
 import { Usuario, Persona, Departamento, Department } from 'src/app/models/model.index';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
@@ -14,15 +15,21 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
   title = 'appBootstrap';
-  
+
   closeResult: string;
 
   ingresando: boolean = false;
   Usuario: Usuario;
   Persona: Persona;
   errormsj: string;
-  passwordRegister:string='';
-  passwordLogin:string= '';
+  passwordRegister: string = '';
+  passwordLogin: string = '';
+
+  Username: string = '';
+  newpassword: string = '';
+  confirmation: string = '';
+
+
   constructor(
     private router: Router,
     private _cryptoService: CryptoService,
@@ -32,7 +39,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.inicio();
-  
+    this.start();
+  }
+
+  start() {
+    this.Username = '';
+    this.newpassword = '';
+    this.confirmation = '';
   }
 
   ingresar(form: NgForm) {
@@ -55,15 +68,53 @@ export class LoginComponent implements OnInit {
   inicio() {
     this.Persona = new Persona(-1, '', '', '', '', '');
     let departamento = new Department(-1, '', 0);
-    this.Usuario = new Usuario(-1,'', -1, '', this.Persona, departamento);
-    this.passwordRegister ='';
+    this.Usuario = new Usuario(-1, '', -1, '', this.Persona, departamento);
+    this.passwordRegister = '';
     this.passwordLogin = '';
   }
 
-  registermodal(){
+  registermodal() {
     $("#Register").modal('show');
 
   }
+
+  validateChange() {
+    if (this.Username == '')
+      return 'Debe ingresar su nombre de usuario';
+
+    if (this.newpassword == '')
+      return 'Debe ingresar su nueva contraseña';
+
+    if (this.confirmation == '')
+      return 'Debe ingresar la confirmación de la contraseña';
+
+    if (this.newpassword != this.confirmation)
+      return 'las contraseñas no coinciden'
+    return '';
+  }
+
+  changePassword() {
+    let msj = this.validateChange();
+
+    if (msj != '') {
+      Swal.fire('Error', msj, 'error');
+      return;
+    } else {
+
+      let currentPasswordSend = this._cryptoService.encryptPassword(this.newpassword);
+      this._usuarioService.changePasswordlogout(this.Username, currentPasswordSend).subscribe(result => {
+        this.start();
+      }
+      );
+
+
+    }
+
+
+  }
+
+
+
 
 
   validar() {
@@ -84,55 +135,55 @@ export class LoginComponent implements OnInit {
 
     if (this.Usuario.nombre == '')
       this.errormsj = 'Debe ingresar su nombre de usuario';
-      if(this.Usuario.password == '')
+    if (this.Usuario.password == '')
       this.errormsj = 'Debe ingresar una contraseña';
-  
-    this.errormsj='';  
-    }
 
-    registrarse(){
-      this.validar();
-      if(this.errormsj==''){
-        
-       
-        this.Persona.persona_Id = parseInt(this.Persona.strId);
-        //cambio aqui
-        this.Usuario.departamento.department_id=4;
-       
-       
-        this.Usuario.password = this._cryptoService.encryptPassword(this.passwordRegister);
-        this.Usuario.rol = 3; 
-        this.Usuario.persona=this.Persona;
-        this.Usuario.departamento.department_id = 3;
-        
-        this._usuarioService.signin( this.Usuario )
+    this.errormsj = '';
+  }
+
+  registrarse() {
+    this.validar();
+    if (this.errormsj == '') {
+
+
+      this.Persona.persona_Id = parseInt(this.Persona.strId);
+      //cambio aqui
+      this.Usuario.departamento.department_id = 4;
+
+
+      this.Usuario.password = this._cryptoService.encryptPassword(this.passwordRegister);
+      this.Usuario.rol = 3;
+      this.Usuario.persona = this.Persona;
+      this.Usuario.departamento.department_id = 3;
+
+      this._usuarioService.signin(this.Usuario)
         .subscribe(() => {
           this.getDismissReason('ESC');
           this.inicio();
         })
-      }
-
-
     }
 
 
-    open(content) {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"  }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
-    }
+  }
 
-    private getDismissReason(reason: any): string {
-      if (reason === ModalDismissReasons.ESC) {
-        return 'by pressing ESC';
-      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-        return 'by clicking on a backdrop';
-      } else {
-        return  `with: ${reason}`;
-      }
+
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: "myCustomModalClass" }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
     }
+  }
 
 
 }
