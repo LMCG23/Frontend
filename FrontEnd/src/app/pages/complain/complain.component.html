@@ -150,7 +150,7 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label>Departamento</label>
-            <select [(ngModel)]="department_Id" (change)="capturar( item )" class="form-control" required>
+            <select [(ngModel)]="department_Id" (change)="capturar(  )" class="form-control" required>
               <option value="-1">-- Seleccione un departamento --</option>
               <option *ngFor="let item of departmens" [value]="item.department_Id">
                 {{ item.name }}
@@ -162,7 +162,7 @@
             <label>Funcionario</label>
             <div class="input-group">
               <input [(ngModel)]="Funcio.nombre" name="employee" type="text" class="form-control"
-                placeholder="Insertar funcionario" [value]="employee" required disabled>
+                placeholder="Insertar funcionario" required disabled>
               <span class="input-group-btn">
                 <button class="btn btn-primary" (click)="open(mymodal)">
                   <i class="material-icons">search</i>
