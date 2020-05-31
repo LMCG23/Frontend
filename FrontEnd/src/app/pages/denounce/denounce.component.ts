@@ -33,6 +33,9 @@ export class DenounceComponent implements AfterViewInit {
   denuncias: Denounce[] = []
   Description: string = '';
 
+  guardando:boolean;
+  cancelando:boolean;
+
   Answer:string = '';
 
   //filters

@@ -8,7 +8,7 @@
  
 font-family: 'Source Sans Pro', sans-serif;
     font-size: 100%;
-    background: url(/assets/img/bg.jpg) no-repeat center ;
+    background: linear-gradient(#171a21,#2a475e ,#171a21) !important;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -174,7 +174,7 @@ label.check {
     content: "";
     display: block;
     border-radius: 50%;
-    border: 2px solid #171a21;
+    border: 2px solid whitesmoke;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -230,16 +230,16 @@ label.check {
 
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #aaa;
+  color: whitesmoke !important;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: #aaa;
+    color: whitesmoke !important;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: #aaa;
+    color: whitesmoke !important;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: #aaa;
+    color: whitesmoke !important;
 }
 .w3ls-login input[type=submit] {
     color: #fff;
@@ -316,7 +316,7 @@ label.switch {
     right: 0;
     bottom: 4px;
     width: 18%;
-    background-color: #666;
+    background-color: whitesmoke;
     -webkit-transition: .4s;
     transition: .4s;
      border-radius: 10px;
@@ -370,7 +370,7 @@ input:checked+.slider:before {
 }
 
 .copy-wthree p {
-    color: #ccc;
+    color: whitesmoke;
     font-size: 16px;
     letter-spacing: 1px;
     line-height: 1.8;
@@ -579,7 +579,7 @@ button, input[button] {
     background: linear-gradient(#171a21,#2a475e,#1b2838);
 }
 
-.letras{color: #b8b6b4 !important;}
+.letras{color: whitesmoke !important;}
 
 .iconos {
     background: #06bfff ;
@@ -604,3 +604,243 @@ textarea{
     border: 1px solid #666;
     border-radius: 5px;
 }
+
+
+/* login 2 */
+
+
+  
+  /*//////////////////////////////////////////////////////////////////
+  [ RESTYLE TAG ]*/
+  
+  * {
+      margin: 0px; 
+      padding: 0px; 
+      box-sizing: border-box;
+  }
+  
+  body, html {
+      height: 100%;
+      font-family: Poppins-Regular, sans-serif;
+  }
+  
+  /*---------------------------------------------*/
+  a {
+      font-family: Poppins-Regular;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #666666;
+      margin: 0px;
+      transition: all 0.4s;
+      -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+  }
+  
+  a:focus {
+      outline: none !important;
+  }
+  
+  a:hover {
+    text-decoration: none;
+    color: #fc00ff;
+    border-color: #fc00ff;
+  }
+  
+  /*---------------------------------------------*/
+  h1,h2,h3,h4,h5,h6 {
+      margin: 0px;
+  }
+  
+  p {
+      font-family: Poppins-Regular;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #666666;
+      margin: 0px;
+  }
+  
+  ul, li {
+      margin: 0px;
+      list-style-type: none;
+  }
+  
+  
+  /*---------------------------------------------*/
+  input {
+      outline: none;
+      border: none;
+  }
+  
+  textarea {
+    outline: none;
+    border: none;
+  }
+  
+  textarea:focus, input:focus {
+    border-color: transparent !important;
+  }
+  
+  input:focus::-webkit-input-placeholder { color:transparent; }
+  input:focus:-moz-placeholder { color:transparent; }
+  input:focus::-moz-placeholder { color:transparent; }
+  input:focus:-ms-input-placeholder { color:transparent; }
+  
+  textarea:focus::-webkit-input-placeholder { color:transparent; }
+  textarea:focus:-moz-placeholder { color:transparent; }
+  textarea:focus::-moz-placeholder { color:transparent; }
+  textarea:focus:-ms-input-placeholder { color:transparent; }
+  
+  input::-webkit-input-placeholder { color: #555555;}
+  input:-moz-placeholder { color: #555555;}
+  input::-moz-placeholder { color: #555555;}
+  input:-ms-input-placeholder { color: #555555;}
+  
+  textarea::-webkit-input-placeholder { color: #555555;}
+  textarea:-moz-placeholder { color: #555555;}
+  textarea::-moz-placeholder { color: #555555;}
+  textarea:-ms-input-placeholder { color: #555555;}
+  
+  label {
+    display: block;
+    margin: 0;
+  }
+  
+  /*---------------------------------------------*/
+  button {
+      outline: none !important;
+      border: none;
+      background: transparent;
+  }
+  
+  button:hover {
+      cursor: pointer;
+  }
+  
+  iframe {
+      border: none !important;
+  }
+  
+  
+
+  
+  
+  
+  .container-login100 {
+    width: 100%;  
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;;
+  }
+  
+  
+  .wrap-login100 {
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+
+
+  
+
+  
+
+
+  /*------------------------------------------------------------------
+  [ Input ]*/
+  
+  .wrap-input100 {
+    max-width: 80%;
+    position: relative;
+    background-color: #f7f7f7;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+  }
+  .wrap-input101{
+    max-width: 100%;
+    position: relative;
+    background-color: #f7f7f7;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+  }
+  
+  
+  /*---------------------------------------------*/
+  .input100 {
+    font-family: Poppins-Regular;
+    color: #333333;
+    line-height: 1.2;
+    font-size: 18px;
+  
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 60px;
+    padding: 0 20px;
+  }
+  
+  
+
+  
+  
+  /*------------------------------------------------------------------
+  [ Button ]*/
+  .container-login100-form-btn {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .login100-form-btn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 60px;
+    background-color: #333333;
+    border-radius: 10px;
+  
+    font-family: Poppins-Medium;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    position: relative;
+    z-index: 1;
+  }
+ 
+ 
+
+  
+
+
+  
+  
+
+
+

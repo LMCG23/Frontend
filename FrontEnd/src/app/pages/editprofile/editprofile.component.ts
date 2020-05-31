@@ -21,7 +21,7 @@ export class EditprofileComponent implements OnInit {
   imagePathTemp: any = '/assets/img/theme/no_user_logo.png';
   titulo: string = 'Seleccione una imagen';
   public current: SafeResourceUrl;
-
+  cancelando:boolean;
 
   currentPassword: string = '';
   newpassword: string = '';

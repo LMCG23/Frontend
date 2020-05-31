@@ -28,6 +28,8 @@ export class ComplainComponent implements OnInit {
   Description: string;
 
 
+  guardando:boolean;
+  cancelando:boolean;
   desde: string = '';
   hasta: string = '';
   Complainstate: string = '-1';

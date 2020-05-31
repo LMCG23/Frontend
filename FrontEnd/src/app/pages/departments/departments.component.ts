@@ -24,7 +24,8 @@ export class DepartmentsComponent implements OnInit {
 
   filter: string = ''
 
-
+  guardando:boolean;
+  cancelando:boolean;
 
   constructor(
     private _complainService: ComplainService,

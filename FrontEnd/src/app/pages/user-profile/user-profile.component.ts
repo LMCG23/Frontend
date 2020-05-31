@@ -14,6 +14,7 @@ export class UserProfileComponent implements OnInit {
   useredit: Usuario;
   editprofile: boolean = false;
   guardando: boolean = true;
+  cancelando:boolean;
   constructor(
     private usuarioService: UsuarioService
 
